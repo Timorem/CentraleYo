@@ -1,23 +1,36 @@
-Tasks = new Mongo.Collection("tasks");
+Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clics
+
+if(Meteor.isServer) { 
+	Meteor.publish("compteur", function() {
+		return Compteur.find({});
+	});
+}
  
 if (Meteor.isClient) {
-  Session.set("counter", 0);
-  // This code only runs on the client
-  Template.body.helpers({
-    counter: function () {
-      return Session.get("counter");
-    }
-  });
+	Meteor.subscribe("compteur");
+	
+	Template.body.helpers({
+		counter: function () {
+		return Compteur.findOne().compt;
+		}
+	});
 
-  Template.body.helpers({
-    counterOver: function(value) {
-      return Session.get("counter") > value;
-    }
-  });
+	Template.body.helpers({
+		counterOver: function(value) { //regarde si le nb de clics > value
+			return Compteur.findOne().compt > value;
+		}
+	});
 
-  Template.body.events({
-    "click button": function () {
-     Session.set("counter", Session.get("counter") + 1);
-    }
-  });
+	Template.body.events({ //on appelle la méthode increment pour incrémenter le compteur
+		"click button": function () {
+			Meteor.call("increment"); 
+		}
+	});
 }
+
+Meteor.methods({ 
+	increment: function(){
+		var count = Compteur.findOne().compt;
+		Compteur.update({}, { $set: { compt: count+1}}); //on incrémente le compteur
+	}
+});
