@@ -1,12 +1,16 @@
 <head>
   <title>Centrale Yo : Tous à la NEB</title>
+  <link href="main.css" rel="stylesheet"/>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
  
 <body>
   <div class="container">
     <header>
-    	{{#if counterOver 30}}
+    	{{#if counterOver 15}}
     		<h1>TOUS A LA NEB !</h1>
+        <img src="img/giphy.gif"/>
+        <h1>Compteur : {{counter}}</h1>
     	{{else}}
     		<h1>Compteur : {{counter}}</h1>
     	{{/if}}
