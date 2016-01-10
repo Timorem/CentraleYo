@@ -22,8 +22,14 @@ if (Meteor.isClient) {
 	});
 
 	Template.body.events({ //on appelle la méthode increment pour incrémenter le compteur
-		"click button": function () {
+		"click .neb": function () {
 			Meteor.call("increment"); 
+		}
+	});
+
+	Template.body.events({
+			"click .raz": function() {
+			Meteor.call("raz");
 		}
 	});
 }
@@ -32,5 +38,8 @@ Meteor.methods({
 	increment: function(){
 		var count = Compteur.findOne().compt;
 		Compteur.update({}, { $set: { compt: count+1}}); //on incrémente le compteur
+	},
+	raz: function(){
+		Compteur.update({}, { $set: { compt: 0}}); //on incrémente le compteur
 	}
 });
