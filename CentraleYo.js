@@ -1,6 +1,11 @@
 Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clics
 
 if(Meteor.isServer) { 
+	if (!Compteur.findOne())
+	{
+		Compteur.insert({compt:0});
+	}
+
 	Meteor.publish("compteur", function() {
 		return Compteur.find({});
 	});
