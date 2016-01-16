@@ -29,3 +29,8 @@ a:hover {
   background-color: #fff;
   border: 1px solid #fff;
 }
+
+.gif {
+  width: 500;
+  height: 600;
+}
