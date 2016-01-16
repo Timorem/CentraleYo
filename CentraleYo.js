@@ -3,7 +3,7 @@ Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clic
 if(Meteor.isServer) { 
 	if (!Compteur.findOne())
 	{
-		Compteur.insert({compt:0});
+		Compteur.insert({compt:0, lastClickDate:new Date()});
 	}
 
 	Meteor.publish("compteur", function() {
@@ -13,7 +13,12 @@ if(Meteor.isServer) {
  
 if (Meteor.isClient) {
 	Meteor.subscribe("compteur");
-	
+
+	if (Date.now() - Compteur.findOne().lastClickDate > 1000*30)
+	{
+		Meteor.call("raz");
+	}
+
 	Template.body.helpers({
 		counter: function () {
 		return Compteur.findOne().compt;
@@ -42,9 +47,9 @@ if (Meteor.isClient) {
 Meteor.methods({ 
 	increment: function(){
 		var count = Compteur.findOne().compt;
-		Compteur.update({}, { $set: { compt: count+1}}); //on incrémente le compteur
+		Compteur.update({}, { $set: { compt: count+1, lastClickDate:new Date()}});//on incrémente le compteur
 	},
 	raz: function(){
-		Compteur.update({}, { $set: { compt: 0}}); //on incrémente le compteur
+		Compteur.update({}, { $set: { compt: 0, lastClickDate:new Date()}}); //on incrémente le compteur
 	}
 });

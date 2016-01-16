@@ -3,6 +3,7 @@
 ##Installation de Meteor
 
 Tout d'abord installer meteor en suivant ce lien : https://www.meteor.com/install
+Rédemarrer le PC
 
 ##Lancement de Meteor
 
@@ -23,9 +24,4 @@ Il s'affiche alors
 Ouvrez ensuite votre navigateur web et tapez "http://localhost:3000/" dans la barre de navigation
 
 Les modifications des fichiers sont prises en compte dès leur sauvegarde, il suffit alors de recharger la page
-
-###Configuration du projet
-Il faut d'abord créer le compteur dans la base de donnée, pour se faire lancer une fênetre de commandes sur le dossier, entrer la commande "meteor mongo" puis "db.compteur.insert({compt:0})"
-
-La base de donnée est alors configuré
 
