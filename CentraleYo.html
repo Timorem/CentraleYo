@@ -7,13 +7,19 @@
 <body>
   <div class="container">
     <header>
-    	{{#if counterOver 15}}
+    	{{#if counterInbetween 0 15 0}}
     		<h1>TOUS A LA NEB !</h1>
-        <img src="img/giphy.gif"/>
-        <h1>Compteur : {{counter}}</h1>
-    	{{else}}
-    		<h1>Compteur : {{counter}}</h1>
+        <img src="img/giphy.gif" height="300"/>
+      {{/if}}
+      {{#if counterInbetween 15 30 0}}
+        <h1>TOUS A LA NEB !</h1>
+        <img src="img/giphy2.gif" height="300"/>
     	{{/if}}
+      {{#if counterInbetween 0 15 1}}
+        <h1>TOUS A LA NEB !</h1>
+        <img src="img/giphy2.gif" height="300"/>
+      {{/if}}
+      <h1>Compteur : {{counter}} Etat : {{etat}}</h1>
     </header>
  
 	<button class="neb">Je suis à la neb</button>
