@@ -39,6 +39,11 @@ if (Meteor.isClient) {
 			return (Compteur.findOne().compt >= valueinf) && (Compteur.findOne().compt < valuesup) && (Compteur.findOne().etat == etat);
 		}
 	});
+	Template.body.helpers({
+		counterExact: function(value, etat) { //regarde si le nb de clics = value
+			return Compteur.findOne().compt == value;
+		}
+	});
 
 	Template.body.events({ //on appelle la méthode increment pour incrémenter le compteur
 		"click .neb": function () {
@@ -58,14 +63,20 @@ Meteor.methods({
 		var count = Compteur.findOne().compt;
 		var valueEtat = Compteur.findOne().etat;
 
-		if (count == 10 && valueEtat == 0)
+		if (count == 30 && valueEtat == 0)
 		{
 			valueEtat = 1;
 			count = 0;
 		}
-		else if (count == 10 && valueEtat == 1)
+		else if (count == 20 && valueEtat == 1)
 		{
-			count = 100;
+			count = 0;
+			valueEtat = 2;
+		}
+		else if (count == 100 && valueEtat == 2)
+		{
+			count = 0;
+			valueEtat = 0;
 		}
 		else
 		{
