@@ -1,5 +1,8 @@
 Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clics
 
+Router.route('home', {path:'/'});
+Router.route('admin', {path:'/adminyo'});
+
 if(Meteor.isServer) { 
 	if (!Compteur.findOne())
 	{
@@ -14,45 +17,40 @@ if(Meteor.isServer) {
 if (Meteor.isClient) {
 	Meteor.subscribe("compteur");
 
-	Template.body.helpers({
-		counter: function () {
-		return Compteur.findOne().compt;
-		}
-	});
+	Template.registerHelper('counter', function () {
+			return Compteur.findOne().compt;
+		});
+	Template.registerHelper('etat', function () {
+			return Compteur.findOne().etat;
+		});
 
-
-	Template.body.helpers({
-		etat: function () {
-		return Compteur.findOne().etat;
-		}
-	});
-
-
-	Template.body.helpers({
+	Template.Home.helpers({
 		counterOver: function(value) { //regarde si le nb de clics > value
 			return Compteur.findOne().compt >= value;
-		}
-	});
-
-	Template.body.helpers({
+		},
 		counterInbetween: function(valueinf, valuesup, etat) { //regarde si le nb de clics > value
 			return (Compteur.findOne().compt >= valueinf) && (Compteur.findOne().compt < valuesup) && (Compteur.findOne().etat == etat);
-		}
-	});
-	Template.body.helpers({
+		},
 		counterExact: function(value, etat) { //regarde si le nb de clics = value
 			return Compteur.findOne().compt == value;
-		}
+		},
+
 	});
 
-	Template.body.events({ //on appelle la méthode increment pour incrémenter le compteur
-		"click .neb": function () {
+
+	Template.Home.events({ //on appelle la méthode increment pour incrémenter le compteur
+		"click .neb" : function (event) {
 			Meteor.call("increment");
 		}
 	});
 
-	Template.body.events({
-			"click .raz": function() {
+	Template.Admin.events({
+		"click .neb" : function(event) {
+			event.preventDefault();
+			Meteor.call("increment");
+		},
+		"click .raz" : function (event) {
+			event.preventDefault();
 			Meteor.call("raz");
 		}
 	});

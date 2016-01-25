@@ -1,0 +1,36 @@
+<template name="Admin">
+Page admin
+
+  <h1>Compteur : {{counter}} </h1>
+ <!-- réalisé sur http://bootsnipp.com/forms -->
+  <form class="form-horizontal">
+	<fieldset>
+
+	<!-- Button (Double) -->
+	<div class="form-group">
+	  <label class="col-md-4 control-label" for="button1id">Compteur</label>
+	  <div class="col-md-4">
+	    <button id="button1id" class="btn btn-warning raz">Remise à zéro</button>
+	    <button class="btn btn-success neb">Incrémenter</button>
+	  </div>
+	</div>
+
+	<!-- Textarea -->
+	<div class="form-group">
+	  <label class="col-md-4 control-label" for="textarea">Notification</label>
+	  <div class="col-md-4">                     
+	    <textarea class="form-control" id="textarea" name="textarea">Message à envoyer</textarea>
+	  </div>
+	</div>
+
+	<!-- Button -->
+	<div class="form-group">
+	  <label class="col-md-4 control-label" for="send"></label>
+	  <div class="col-md-4">
+	    <button id="send" name="send" class="btn btn-primary">Envoyer</button>
+	  </div>
+	</div>
+
+	</fieldset>
+	</form>	
+</template>
