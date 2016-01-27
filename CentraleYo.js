@@ -16,7 +16,6 @@ if(Meteor.isServer) {
  
 if (Meteor.isClient) {
 	Meteor.subscribe("compteur");
-
 	Template.registerHelper('counter', function () {
 			return Compteur.findOne().compt;
 		});
@@ -41,6 +40,7 @@ if (Meteor.isClient) {
 	Template.Home.events({ //on appelle la méthode increment pour incrémenter le compteur
 		"click .neb" : function (event) {
 			Meteor.call("increment");
+			Meteor.call('serverNotification','test','test');
 		}
 	});
 

@@ -1,4 +1,10 @@
 <template name="Home">
+  <script>
+  $(".neb").click(function(){
+    alert("hi");
+    $("#button-gif").prop("src", "");
+  })
+  </script>
 Home
 	{{#if counterInbetween 0 10 0}}
     <h1>TOUS A LA NEB !</h1>
@@ -67,5 +73,5 @@ Home
 
     <h1>Compteur : {{counter}} </h1>
  
-  <button class="neb">Je suis à la neb</button>
+  <button class="neb"><img id="button-gif" src="img/BeerPong.gif" height="300" width="300"/></button>
 </template>

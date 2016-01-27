@@ -34,3 +34,8 @@ a:hover {
   width: 500;
   height: 600;
 }
+
+.neb {
+	background-color: transparent;
+	border: 0px;
+}
