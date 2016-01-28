@@ -68,13 +68,11 @@ Home
 
     <h1>Compteur : {{counter}} </h1>
  
-  <button class="neb"><img id="button-gif" src="img/BeerPong.gif" height="300" width="300"/></button>
+  <button class="neb"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
     <script>
-  Meteor.startup(function(){
-    alert($(".neb").length);
+    Meteor.startup(function(){
     $(".neb").click(function(){
-      alert("hi");
-      $("#button-gif").prop("src", "");
+      $("#button-gif").prop("src", "img/BeerPong .gif");
     });
   });
   </script>
