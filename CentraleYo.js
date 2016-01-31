@@ -15,6 +15,7 @@ if(Meteor.isServer) {
 }
  
 if (Meteor.isClient) {
+	Push.enabled(true);
 	Meteor.subscribe("compteur");
 	Template.registerHelper('counter', function () {
 			return Compteur.findOne().compt;
@@ -56,7 +57,7 @@ if (Meteor.isClient) {
 	});
 }
 
-Meteor.methods({ 
+Meteor.methods({
 	increment: function(){
 		var count = Compteur.findOne().compt;
 		var valueEtat = Compteur.findOne().etat;
