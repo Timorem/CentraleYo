@@ -34,6 +34,13 @@ if (Meteor.isClient) {
 					clockFace: 'Counter'
 				});
 			});
+
+			Compteur.find().observeChanges({
+				changed:function(id, fields)
+				{
+					template.clock.setValue(fields.compt);
+				}
+			});
 		}
 	);
 
@@ -49,6 +56,7 @@ if (Meteor.isClient) {
 		},
 
 	});
+
 
 	Template.Home.events({ //on appelle la méthode increment pour incrémenter le compteur
 		"click .neb" : function (event, template) {
