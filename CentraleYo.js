@@ -3,6 +3,7 @@ Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clic
 Router.route('home', {path:'/'});
 Router.route('admin', {path:'/adminyo'});
 
+
 if(Meteor.isServer) { 
 	if (!Compteur.findOne())
 	{
@@ -24,6 +25,18 @@ if (Meteor.isClient) {
 			return Compteur.findOne().etat;
 		});
 
+	Template.Home.onRendered(function()
+		{
+			var template = this;
+			Meteor.call("getCounter", function(error, result)
+			{
+				template.clock = new FlipClock($('.clock'), result, {
+					clockFace: 'Counter'
+				});
+			});
+		}
+	);
+
 	Template.Home.helpers({
 		counterOver: function(value) { //regarde si le nb de clics > value
 			return Compteur.findOne().compt >= value;
@@ -37,11 +50,12 @@ if (Meteor.isClient) {
 
 	});
 
-
 	Template.Home.events({ //on appelle la méthode increment pour incrémenter le compteur
-		"click .neb" : function (event) {
-			Meteor.call("increment");
-			Meteor.call('serverNotification','test','test');
+		"click .neb" : function (event, template) {
+			Meteor.call("increment", function(error, result)
+			{
+				template.clock.setValue(result)
+			});
 		}
 	});
 
@@ -58,31 +72,16 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
+	getCounter: function() {
+		return Compteur.findOne().compt;
+	},
 	increment: function(){
 		var count = Compteur.findOne().compt;
 		var valueEtat = Compteur.findOne().etat;
 
-		if (count == 30 && valueEtat == 0)
-		{
-			valueEtat = 1;
-			count = 0;
-		}
-		else if (count == 20 && valueEtat == 1)
-		{
-			count = 0;
-			valueEtat = 2;
-		}
-		else if (count == 100 && valueEtat == 2)
-		{
-			count = 0;
-			valueEtat = 0;
-		}
-		else
-		{
-			count++;
-		}
-
+		count++;
 		Compteur.update({}, { $set: { compt: count, etat:valueEtat}}); //on incrémente le compteur
+		return count;
 	},
 	raz: function(){
 		Compteur.update({}, { $set: { compt: 0, etat:0}}); //on incrémente le compteur
