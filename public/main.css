@@ -1,9 +1,20 @@
-/* CSS declarations go here */
+@font-face {
+  font-family: 'lobsterregular';
+  src: url('dist/fonts/lobster-regular-webfont.eot');
+  src: url('dist/fonts/lobster-regular-webfont.eot?#iefix') format('embedded-opentype'),
+  url('dist/fonts/lobster-regular-webfont.woff2') format('woff2'),
+  url('dist/fonts/lobster-regular-webfont.woff') format('woff'),
+  url('dist/fonts/lobster-regular-webfont.ttf') format('truetype'),
+  url('dist/fonts/lobster-regular-webfont.svg#lobsterregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
 
 html,
 body {
   height: 100%;
-  background-color: #fff;
+  background: #fff;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -43,6 +54,17 @@ a:hover {
     margin:50px;
 }
 
+.logo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  position: absolute;
+  top: 0px;
+  right:0px;
+  margin:5px;
+  z-index:-1;
+}
+
 .navbar-default{
   background-color: #983C3C;
   border-width: 2px 0 0 0;
@@ -60,6 +82,7 @@ a:hover {
 
 .navbar-nav>li {
   margin:0 20px 0 20px;
+  display: inline-block;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -70,6 +93,18 @@ a:hover {
   color:inherit;
 }
 
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
+}
+
 .flip-clock-wrapper{
   width: -moz-fit-content;
   width: fit-content;
@@ -78,6 +113,39 @@ a:hover {
 
 .tousalaneb {
   margin:75px;
-  font-family: 'Lobster', cursive;
+  font-family: "lobsterregular";
   font-size:600%;
+}
+
+@media only screen and (max-width: 760px) {
+  .tousalaneb {
+    margin:50px;
+    font-size:400%;
+  }
+
+  .neb {
+    padding: 25px 0px 0px 25px;
+    margin: 5px 0px 5px 0px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .tousalaneb {
+    margin:30px 30px 0px 30px;
+    font-size:250%;
+  }
+  .neb>img {
+    height: 200px;
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+
+  .navbar-nav {
+    font-size:200%;
+  }
+
+  .navbar-nav>li{
+    margin:0 5px 0 5px;
+  }
 }
