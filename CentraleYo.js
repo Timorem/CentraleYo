@@ -3,6 +3,37 @@ Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clic
 Router.route('home', {path:'/'});
 Router.route('admin', {path:'/adminyo'});
 
+Router.configure({
+	loadingTemlate:'loading'
+})
+
+Meteor.methods({
+    getCounter: function() {
+        return Compteur.findOne().compt;
+    },
+    increment: function(){
+        var count = Compteur.findOne().compt;
+        var valueEtat = Compteur.findOne().etat;
+
+        count++;
+        Compteur.update({}, { $set: { compt: count, etat:valueEtat}}); //on incrémente le compteur
+        return count;
+    },
+    raz: function(){
+        Compteur.update({}, { $set: { compt: 0, etat:0}}); //on incrémente le compteur
+    },
+    config:function(){
+        ServiceConfiguration.configurations.remove({service:'myecp'})
+
+        ServiceConfiguration.configurations.insert({
+            service:'myecp',
+            appId:'44_4a0dp01spse804ok4kwc44ccc0w8000sc0ocog8w8cc48040c0',
+            secret:"4v0puc9sdh8gs4k8wsscw4gkggw0ocwks84os4s8kgkoosw4wo"
+        });
+
+    }
+});
+
 
 if(Meteor.isServer) { 
 	if (!Compteur.findOne())
@@ -13,11 +44,17 @@ if(Meteor.isServer) {
 	Meteor.publish("compteur", function() {
 		return Compteur.find({});
 	});
+    Meteor.publish("userData", function () {
+        return Meteor.users.find({_id: this.userId});
+    });
+    Meteor.call("config");
 }
  
 if (Meteor.isClient) {
 	Push.enabled(true);
 	Meteor.subscribe("compteur");
+    Meteor.subscribe("userData");
+
 	Template.registerHelper('counter', function () {
 			return Compteur.findOne().compt;
 		});
@@ -54,6 +91,12 @@ if (Meteor.isClient) {
 		counterExact: function(value, etat) { //regarde si le nb de clics = value
 			return Compteur.findOne().compt == value;
 		},
+        isConnected :function(){
+            return Meteor.userId();
+        },
+        userName : function(){
+            return Meteor.user().services.myecp.first_name;
+        },
 
 	});
 
@@ -64,6 +107,14 @@ if (Meteor.isClient) {
 			{
 				template.clock.setValue(result)
 			});
+		},
+		"click #myecp-login": function(event, template){
+			Meteor.loginWithMyECP({loginStyle: "redirect"}, function(err){
+				if (err) {
+					throw new Meteor.Error(err);
+				} else {
+					throw new Meteor.Error("LOL");
+				}});
 		}
 	});
 
@@ -75,23 +126,10 @@ if (Meteor.isClient) {
 		"click .raz" : function (event) {
 			event.preventDefault();
 			Meteor.call("raz");
+		},
+		"submit .adminform":function(event){
+			event.preventDefault();
+			Meteor.call("serverNotification", event.target.textarea.value, "Centrale YO");
 		}
 	});
 }
-
-Meteor.methods({
-	getCounter: function() {
-		return Compteur.findOne().compt;
-	},
-	increment: function(){
-		var count = Compteur.findOne().compt;
-		var valueEtat = Compteur.findOne().etat;
-
-		count++;
-		Compteur.update({}, { $set: { compt: count, etat:valueEtat}}); //on incrémente le compteur
-		return count;
-	},
-	raz: function(){
-		Compteur.update({}, { $set: { compt: 0, etat:0}}); //on incrémente le compteur
-	}
-});

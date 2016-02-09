@@ -22,3 +22,6 @@ alanning:roles
 accounts-ui
 iron:router
 raix:push
+fuego:myecp
+fuego:account-myecp
+service-configuration

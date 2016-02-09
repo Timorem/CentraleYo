@@ -10,6 +10,18 @@ App.info({
     website: 'http://centraleyo.meteor.com'
 });
 
+// Set up resources such as icons and launch screens.
+App.icons({
+    'iphone': 'icons/icon-hdpi.png',
+    'iphone_2x': 'icons/icon-xxhdpi.png',
+
+    // Android
+    'android_mdpi': 'icons/icon-mdpi.png',
+    'android_hdpi': 'icons/icon-hdpi.png',
+    'android_xhdpi': 'icons/icon-xhdpi.png'
+});
+
+
 // Set PhoneGap/Cordova preferences
 App.setPreference('BackgroundColor', '0xff0000ff');
 App.setPreference('HideKeyboardFormAccessoryBar', true);

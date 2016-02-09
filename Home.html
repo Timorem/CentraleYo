@@ -2,74 +2,32 @@
 
     <h1 class="tousalaneb">TOUS A LA NEB !</h1>
 
-    <!--<div>
-        {{#if counterInbetween 0 10 0}}
-            <img src="img/giphy16.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 10 20 0}}
-            <img src="img/giphy2.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 20 31 0}}
-            <img src="img/giphy3.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 0 10 1}}
-            <img src="img/giphy17.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 10 21 1}}
-            <img src="img/giphy4.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 0 10 2}}
-            <img src="img/giphy18.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 10 20 2}}
-            <img src="img/giphy5.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 20 30 2}}
-            <img src="img/giphy6.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 30 40 2}}
-            <img src="img/giphy7.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 40 50 2}}
-            <img src="img/giphy8.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 50 60 2}}
-            <img src="img/giphy9.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 60 70 2}}
-            <img src="img/giphy10.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 70 80 2}}
-            <img src="img/giphy11.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 80 90 2}}
-            <img src="img/giphy12.gif" height="300"/>
-        {{/if}}
-        {{#if counterInbetween 90 100 2}}
-            <img src="img/giphy13.gif" height="300"/>
-        {{/if}}
-        {{#if counterExact 100 2}}
-            <img src="img/giphy.gif" height="300"/>
-        {{/if}}
-    </div>-->
-    <div class="flip-clock-wrapper">
-        <div class="clock"></div>
-    </div>
-    <button class="neb"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container">
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#"><i class="fa fa-cutlery"></i></a>
-                    </li>
-                    <li class="active"><a href="#"><i class="fa fa-home"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-beer"></i></a>
-                    </li>
-                </ul>
-            </div>
+    {{#if isConnected}}
+        <h1>HELLO {{userName}}</h1>
+
+        <div class="flip-clock-wrapper">
+            <div class="clock"></div>
         </div>
-    </nav>
+        <button class="neb"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#"><i class="fa fa-cutlery"></i></a>
+                        </li>
+                        <li class="active"><a href="#"><i class="fa fa-home"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-beer"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {{else}}
+        <h1>Connecte-toi sur MyECP</h1>
+        <button id="myecp-login" class="button button-positive">Se connecter !</button>
+    {{/if}}
+
     <script>
         Meteor.startup(function () {
             $(".neb").click(function () {
