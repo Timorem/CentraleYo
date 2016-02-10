@@ -7,20 +7,36 @@ Router.configure({
 	loadingTemlate:'loading'
 })
 
+var resetDate;
+
+var isButtonEnabled = function()
+{
+	if (!resetDate)
+		return Meteor.userId() && !Meteor.user().clickDate;
+
+	return Meteor.userId() && Meteor.user().clickDate < resetDate;
+};
+
 Meteor.methods({
     getCounter: function() {
         return Compteur.findOne().compt;
     },
     increment: function(){
+		if (!Meteor.userId())
+			return;
+
+		if (!isButtonEnabled())
+			return;
+
         var count = Compteur.findOne().compt;
-        var valueEtat = Compteur.findOne().etat;
 
         count++;
-        Compteur.update({}, { $set: { compt: count, etat:valueEtat}}); //on incrémente le compteur
+        Compteur.update({}, { $set: { compt: count}}); //on incrémente le compteur
         return count;
     },
     raz: function(){
-        Compteur.update({}, { $set: { compt: 0, etat:0}}); //on incrémente le compteur
+		resetDate = Date();
+		Compteur.update({}, {$set: {compt: 0}}); //on incrémente le compteur
     },
     config:function(){
         ServiceConfiguration.configurations.remove({service:'myecp'})
@@ -35,10 +51,17 @@ Meteor.methods({
 });
 
 
-if(Meteor.isServer) { 
+if(Meteor.isServer) {
+	Accounts.onCreateUser(function(options, user)
+	{
+		user.clickDate = null
+		return user;
+	});
+
+
 	if (!Compteur.findOne())
 	{
-		Compteur.insert({compt:0, etat:0});
+		Compteur.insert({compt:0});
 	}
 
 	Meteor.publish("compteur", function() {
@@ -47,6 +70,8 @@ if(Meteor.isServer) {
     Meteor.publish("userData", function () {
         return Meteor.users.find({_id: this.userId});
     });
+
+
     Meteor.call("config");
 }
  
@@ -57,9 +82,6 @@ if (Meteor.isClient) {
 
 	Template.registerHelper('counter', function () {
 			return Compteur.findOne().compt;
-		});
-	Template.registerHelper('etat', function () {
-			return Compteur.findOne().etat;
 		});
 
 	Template.Home.onRendered(function()
@@ -85,8 +107,8 @@ if (Meteor.isClient) {
 		counterOver: function(value) { //regarde si le nb de clics > value
 			return Compteur.findOne().compt >= value;
 		},
-		counterInbetween: function(valueinf, valuesup, etat) { //regarde si le nb de clics > value
-			return (Compteur.findOne().compt >= valueinf) && (Compteur.findOne().compt < valuesup) && (Compteur.findOne().etat == etat);
+		counterInbetween: function(valueinf, valuesup) { //regarde si le nb de clics > value
+			return (Compteur.findOne().compt >= valueinf) && (Compteur.findOne().compt < valuesup);
 		},
 		counterExact: function(value, etat) { //regarde si le nb de clics = value
 			return Compteur.findOne().compt == value;
@@ -97,7 +119,7 @@ if (Meteor.isClient) {
         userName : function(){
             return Meteor.user().services.myecp.first_name;
         },
-
+		isButtonActivated : function() {isButtonEnabled();}
 	});
 
 
