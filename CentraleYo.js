@@ -7,14 +7,14 @@ Router.configure({
 	loadingTemlate:'loading'
 })
 
-var resetDate;
-
 var isButtonEnabled = function()
 {
+	var resetDate = Compteur.findOne().resetDate;
+
 	if (!resetDate)
 		return Meteor.userId() && !Meteor.user().clickDate;
 
-	return Meteor.userId() && Meteor.user().clickDate < resetDate;
+	return Meteor.userId() && (!Meteor.user().clickDate || Meteor.user().clickDate < resetDate);
 };
 
 Meteor.methods({
@@ -36,8 +36,7 @@ Meteor.methods({
         return count;
     },
     raz: function(){
-		resetDate = Date();
-		Compteur.update({}, {$set: {compt: 0}}); //on incrémente le compteur
+		Compteur.update({}, {$set: {compt: 0, resetDate: Date()}}); //on incrémente le compteur
     },
     config:function(){
         ServiceConfiguration.configurations.remove({service:'myecp'})
@@ -62,7 +61,7 @@ if(Meteor.isServer) {
 
 	if (!Compteur.findOne())
 	{
-		Compteur.insert({compt:0});
+		Compteur.insert({compt:0, resetDate: Date()});
 	}
 
 	Meteor.publish("compteur", function() {
@@ -120,7 +119,7 @@ if (Meteor.isClient) {
         userName : function(){
             return Meteor.user().services.myecp.first_name;
         },
-		isButtonActivated : function() {isButtonEnabled();}
+		isButtonActivated : function() {return isButtonEnabled();}
 	});
 
 

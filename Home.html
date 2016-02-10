@@ -12,7 +12,7 @@
         {{#if isButtonActivated}}
             <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
         {{else}}
-            <button class="neb disabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+            <button class="neb disabled"><img id="button-gif" src="img/BeerPong .gif" height="300" width="300"/></button>
         {{/if}}
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
@@ -33,13 +33,6 @@
         <button id="myecp-login" class="button button-positive">Se connecter !</button>
     {{/if}}
 
-    <script>
-        Meteor.startup(function () {
-            $(".neb .enabled").click(function () {
-                $("#button-gif").prop("src", "img/BeerPong .gif");
-            });
-        });
-    </script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
