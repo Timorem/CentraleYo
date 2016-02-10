@@ -54,6 +54,10 @@ a:hover {
     margin:50px;
 }
 
+.disabled {
+  opacity:0.3
+}
+
 .logo {
   width: 100px;
   height: 100px;

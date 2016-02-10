@@ -8,7 +8,12 @@
         <div class="flip-clock-wrapper">
             <div class="clock"></div>
         </div>
-        <button class="neb"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+
+        {{#if isButtonActivated}}
+            <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+        {{else}}
+            <button class="neb disabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+        {{/if}}
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
                 <div class="collapse navbar-collapse">
@@ -30,7 +35,7 @@
 
     <script>
         Meteor.startup(function () {
-            $(".neb").click(function () {
+            $(".neb .enabled").click(function () {
                 $("#button-gif").prop("src", "img/BeerPong .gif");
             });
         });

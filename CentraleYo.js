@@ -28,6 +28,7 @@ Meteor.methods({
 		if (!isButtonEnabled())
 			return;
 
+		Meteor.users.update({_id:Meteor.user()._id}, {$set:{"clickDate":Date()}});
         var count = Compteur.findOne().compt;
 
         count++;
