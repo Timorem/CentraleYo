@@ -1,0 +1,60 @@
+<template name="Adminbar">
+Page admin du bar
+{{#if isConnected}}
+ <!-- inserer ici la sécu pour laisser le droit qu'aux responsables bar-->
+ <!-- réalisé sur http://bootsnipp.com/forms -->
+	<form class="adminform form-horizontal">
+		<fieldset>
+
+			<!-- Textarea -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="textarea">Notification</label>
+			  <div class="col-md-4">                     
+			    <textarea class="form-control" id="textarea" name="textarea">Message à envoyer</textarea>
+			  </div>
+			</div>
+
+			<!-- Button -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="send"></label>
+			  <div class="col-md-4">
+			    <button id="send" name="send" type="submit" class="btn btn-primary">Envoyer</button>
+			  </div>
+			</div>
+
+			<!-- Multiple Checkboxes -->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="checkboxes">Pizza</label>
+				<div class="col-md-4">
+			  		<div class="checkbox">		
+		    			{{#each listPizza}}
+		    				<label for="checkboxes">
+			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{dispo}}" class="pizza-check">
+								{{name}}
+							</label>
+		    			{{/each}}
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="checkboxes">Petits plats</label>
+				<div class="col-md-4">
+			  		<div class="checkbox">		
+		    			{{#each listPlat}}
+		    				<label for="checkboxes">
+			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{dispo}}" class="plat-check">
+								{{name}}
+							</label>
+		    			{{/each}}
+					</div>
+				</div>
+			</div>
+
+		</fieldset>
+	</form>
+{{else}}
+    <h1>Connecte-toi sur MyECP</h1>
+    <button id="myecp-login" class="button button-positive">Se connecter !</button>
+{{/if}}	
+</template>
