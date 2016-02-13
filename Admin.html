@@ -1,6 +1,6 @@
 <template name="Admin">
 Page admin
-
+{{#if isAdminYo}}
   <h1>Compteur : {{counter}} </h1>
  <!-- réalisé sur http://bootsnipp.com/forms -->
   <form class="adminform form-horizontal">
@@ -30,7 +30,10 @@ Page admin
 	    <button id="send" name="send" type="submit" class="btn btn-primary">Envoyer</button>
 	  </div>
 	</div>
-
 	</fieldset>
 	</form>	
+{{else}}
+    <h1>Connecte-toi sur MyECP</h1>
+    <button id="myecp-login" class="button button-positive">Se connecter !</button>
+{{/if}}
 </template>

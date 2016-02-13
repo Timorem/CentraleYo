@@ -2,6 +2,7 @@ Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clic
 Plat = new Mongo.Collection("plat"); //servira à contenir les plats
 Pizza = new Mongo.Collection("pizza");
 Adminbar = new Mongo.Collection("adminbar");
+Adminyo = new Mongo.Collection("adminyo");
 
 Router.route('home', {path:'/'});
 Router.route('admin', {path:'/adminyo'});
@@ -111,8 +112,19 @@ if(Meteor.isServer) {
 		Adminbar.insert({mail:"donatien.criaud@student.ecp.fr"});
 		Adminbar.insert({mail:"edouard.borel@student.ecp.fr"});
 		Adminbar.insert({mail:"achraf.gharbi@student.ecp.fr"});
+		Adminbar.insert({mail:"thomas.walter@student.ecp.fr"});
+		Adminbar.insert({mail:"laurent.lin@student.ecp.fr"});
+		Adminbar.insert({mail:"gabrielle.rappaport@student.ecp.fr"});
+		Adminbar.insert({mail:"thomas.bellec@student.ecp.fr"});
 	}
 
+	if (!Adminyo.findOne()) {
+		Adminyo.insert({mail:"thomas.walter@student.ecp.fr"});
+		Adminyo.insert({mail:"achraf.gharbi@student.ecp.fr"});
+		Adminyo.insert({mail:"laurent.lin@student.ecp.fr"});
+		Adminyo.insert({mail:"gabrielle.rappaport@student.ecp.fr"});
+		Adminyo.insert({mail:"thomas.bellec@student.ecp.fr"});
+	}
 
 	Meteor.publish("compteur", function() {
 		return Compteur.find({});
@@ -129,6 +141,9 @@ if(Meteor.isServer) {
 	Meteor.publish("adminbar", function() {
 		return Adminbar.find({});
 	});
+	Meteor.publish("adminyo", function() {
+		return Adminyo.find({});
+	});
     Meteor.call("config");
 }
  
@@ -139,6 +154,7 @@ if (Meteor.isClient) {
 	Meteor.subscribe("plat");
     Meteor.subscribe("pizza");
     Meteor.subscribe("adminbar");
+    Meteor.subscribe("adminyo");
 	
 	Template.registerHelper('counter', function () {
 			return Compteur.findOne().compt;
@@ -206,6 +222,12 @@ if (Meteor.isClient) {
 		}
 	});
 
+	Template.Admin.helpers({
+		isAdminYo: function(){
+        	return Meteor.userId() && Adminyo.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0;
+        }
+	});
+
 	Template.Admin.events({
 		"click .neb" : function(event) {
 			event.preventDefault();
@@ -218,6 +240,14 @@ if (Meteor.isClient) {
 		"submit .adminform":function(event){
 			event.preventDefault();
 			Meteor.call("serverNotification", event.target.textarea.value, "Centrale YO");
+		},
+		"click #myecp-login": function(event, template){
+			Meteor.loginWithMyECP({loginStyle: "redirect"}, function(err){
+				if (err) {
+					throw new Meteor.Error(err);
+				} else {
+					throw new Meteor.Error("LOL");
+				}});
 		}
 	});
 	
