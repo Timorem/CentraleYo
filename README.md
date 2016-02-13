@@ -39,6 +39,13 @@ Pour mettre son dossier à jour
 Tout d'abord installer meteor en suivant ce lien : https://www.meteor.com/install
 Rédemarrer le PC
 
+##Création d'un mot de passe pour les admins Theodo:
+
+Se connecter sur la base de donnée mongo:
+```meteor mongo```
+Puis tapez:
+```db.admintheodo.insert({mdp: "#insérezVotreMotDePasseIci"})```
+
 ##Lancement de Meteor
 
 Ensuite ouvrez un terminal (cmd. exe sous Windows, Finder>Services>New Terminal sous Mac) et se placer sur le dossier de Centrale Yo (cd "...")
@@ -66,3 +73,18 @@ Veiller à avoir un compte Meteor, et être sur le projet centraleyo (Demander à A
 Lancer un terminal et se placer sur le dossier CentraleYo
 Ecrire
 ```meteor deploy centraleyo.meteor.com```
+
+##Installer l'application sur le téléphone :
+Pour l'instant l'application n'est accessible que pour les téléphones Android.
+
+Une première méthode consiste à installer en connectant le téléphone à un ordinateur sous Linux ou sous Mac. Pour se faire il faut:
+Lancer un terminal et se placer sur le dossier CentraleYo
+Ecrire
+```meteor install-sdk android```
+ensuite
+```meteor add-platform android```
+et enfin branchez votre téléphone sur l'ordinateur. Assurez vous que votre téléphone est bien connecté avec le "USB Debugging" activé ( https://developer.android.com/tools/device.html#developer-device-options )
+```meteor run android-device --mobile-server centraleyo.meteor.com```
+
+Une deuxième méthode consiste à build l'apk et l'installer sur son téléphone:
+Pour ce faire suivre ce tutoriel : https://github.com/meteor/meteor/wiki/How-to-submit-your-Android-app-to-Play-Store
