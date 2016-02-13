@@ -1,6 +1,7 @@
 Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clics
 Plat = new Mongo.Collection("plat"); //servira à contenir les plats
 Pizza = new Mongo.Collection("pizza");
+Adminbar = new Mongo.Collection("adminbar");
 
 Router.route('home', {path:'/'});
 Router.route('admin', {path:'/adminyo'});
@@ -51,10 +52,10 @@ Meteor.methods({
         });
     },
     checkPlat: function(platId, setChecked){
-    	Plat.update(platId, { $set :{dispo: setChecked} });
+    	Plat.update(platId, { $set: { checked: setChecked}});
     },
     checkPizza: function(pizzaId, setChecked){
-    	Pizza.update(pizzaId, { $set :{dispo: setChecked} });
+    	Pizza.update(pizzaId, { $set: { checked: setChecked} });
     }
 });
 
@@ -73,35 +74,45 @@ if(Meteor.isServer) {
 	}
 
 	if (!Plat.findOne()){
-		Plat.insert({name:"Tartiflette", dispo:false});
-		Plat.insert({name:"Poulet Curry", dispo:false});
-		Plat.insert({name:"Gnocci chevre epinard", dispo:false});
-		Plat.insert({name:"Poulet pates champi", dispo:false});
-		Plat.insert({name:"Risotto", dispo:false});
-		Plat.insert({name:"Lasagne", dispo:false});
-		Plat.insert({name:"Poulet basquaise", dispo:false});
-		Plat.insert({name:"Chili con carne", dispo:false});
-		Plat.insert({name:"Tajine de poulet", dispo:false});
-		Plat.insert({name:"Poulet teriyaki", dispo:false});
-		Plat.insert({name:"Raviolis ricotta épinard", dispo:false});
-		Plat.insert({name:"Poulet sauce citron purée de patates douces", dispo:false});
+		Plat.insert({name:"Tartiflette"});
+		Plat.insert({name:"Poulet Curry"});
+		Plat.insert({name:"Gnocci chevre epinard"});
+		Plat.insert({name:"Poulet pates champi"});
+		Plat.insert({name:"Risotto"});
+		Plat.insert({name:"Lasagne"});
+		Plat.insert({name:"Poulet basquaise"});
+		Plat.insert({name:"Chili con carne"});
+		Plat.insert({name:"Tajine de poulet"});
+		Plat.insert({name:"Poulet teriyaki"});
+		Plat.insert({name:"Raviolis ricotta épinard"});
+		Plat.insert({name:"Poulet sauce citron purée de patates douces"});
 	}
 
 	if (!Pizza.findOne()) {
-		Pizza.insert({name:"Kebab", dispo:false});
-		Pizza.insert({name:"Royale", dispo:false});
-		Pizza.insert({name:"Saumon", dispo:false});
-		Pizza.insert({name:"Tomate mozzarella", dispo:false});
-		Pizza.insert({name:"Boeuf chorizo", dispo:false});
-		Pizza.insert({name:"4 Fromages", dispo:false});
-		Pizza.insert({name:"Tartiflette", dispo:false});
-		Pizza.insert({name:"Jambon speck", dispo:false});
-		Pizza.insert({name:"Campagnarde", dispo:false});
-		Pizza.insert({name:"Poulet moutarde", dispo:false});
-		Pizza.insert({name:"Chorizo", dispo:false});
-		Pizza.insert({name:"Chévre", dispo:false});
-		Pizza.insert({name:"Chévre miel", dispo:false});
+		Pizza.insert({name:"Kebab"});
+		Pizza.insert({name:"Royale"});
+		Pizza.insert({name:"Saumon"});
+		Pizza.insert({name:"Tomate mozzarella"});
+		Pizza.insert({name:"Boeuf chorizo"});
+		Pizza.insert({name:"4 Fromages"});
+		Pizza.insert({name:"Tartiflette"});
+		Pizza.insert({name:"Jambon speck"});
+		Pizza.insert({name:"Campagnarde"});
+		Pizza.insert({name:"Poulet moutarde"});
+		Pizza.insert({name:"Chorizo"});
+		Pizza.insert({name:"Chévre"});
+		Pizza.insert({name:"Chévre miel"});
 	}
+	
+	if (!Adminbar.findOne()) {
+		Adminbar.insert({mail:"erwan.le-jumeau-de-kergaradec@student.ecp.fr"});
+		Adminbar.insert({mail:"valentin.condette@student.ecp.fr"});
+		Adminbar.insert({mail:"valentine.joseph@student.ecp.fr"});
+		Adminbar.insert({mail:"donatien.criaud@student.ecp.fr"});
+		Adminbar.insert({mail:"edouard.borel@student.ecp.fr"});
+		Adminbar.insert({mail:"achraf.gharbi@student.ecp.fr"});
+	}
+
 
 	Meteor.publish("compteur", function() {
 		return Compteur.find({});
@@ -115,7 +126,9 @@ if(Meteor.isServer) {
 	Meteor.publish("pizza", function() {
 		return Pizza.find({});
 	});
-
+	Meteor.publish("adminbar", function() {
+		return Adminbar.find({});
+	});
     Meteor.call("config");
 }
  
@@ -125,6 +138,7 @@ if (Meteor.isClient) {
     Meteor.subscribe("userData");
 	Meteor.subscribe("plat");
     Meteor.subscribe("pizza");
+    Meteor.subscribe("adminbar");
 	
 	Template.registerHelper('counter', function () {
 			return Compteur.findOne().compt;
@@ -166,10 +180,10 @@ if (Meteor.isClient) {
             return Meteor.user().services.myecp.first_name;
         },
         affichePlat : function(){
-        	return Plat.find({dispo: true});
+        	return Plat.find({checked: true});
         },
         affichePizza : function(){
-        	return Pizza.find({dispo: true});
+        	return Pizza.find({checked: true});
         },
 		isButtonActivated : function() {return isButtonEnabled();}
 	});
@@ -208,8 +222,8 @@ if (Meteor.isClient) {
 	});
 	
 	Template.Adminbar.helpers({
-		isConnected :function(){
-            return Meteor.userId();
+		isAdminBar: function(){
+        	return Meteor.userId() && Adminbar.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0;
         },
 		listPizza: function(event){
 			return Pizza.find({});

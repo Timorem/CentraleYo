@@ -1,6 +1,6 @@
 <template name="Adminbar">
 Page admin du bar
-{{#if isConnected}}
+{{#if isAdminBar}}
  <!-- inserer ici la sécu pour laisser le droit qu'aux responsables bar-->
  <!-- réalisé sur http://bootsnipp.com/forms -->
 	<form class="adminform form-horizontal">
@@ -28,8 +28,8 @@ Page admin du bar
 				<div class="col-md-4">
 			  		<div class="checkbox">		
 		    			{{#each listPizza}}
-		    				<label for="checkboxes">
-			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{dispo}}" class="pizza-check">
+		    				<label for="checkboxes" class="pizza-check">
+			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{checked}}" />
 								{{name}}
 							</label>
 		    			{{/each}}
@@ -42,8 +42,8 @@ Page admin du bar
 				<div class="col-md-4">
 			  		<div class="checkbox">		
 		    			{{#each listPlat}}
-		    				<label for="checkboxes">
-			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{dispo}}" class="plat-check">
+		    				<label for="checkboxes" class="plat-check">
+			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{checked}}" />
 								{{name}}
 							</label>
 		    			{{/each}}
@@ -56,5 +56,5 @@ Page admin du bar
 {{else}}
     <h1>Connecte-toi sur MyECP</h1>
     <button id="myecp-login" class="button button-positive">Se connecter !</button>
-{{/if}}	
+{{/if}}
 </template>
