@@ -3,17 +3,18 @@ Plat = new Mongo.Collection("plat"); //servira à contenir les plats
 Pizza = new Mongo.Collection("pizza");
 Adminbar = new Mongo.Collection("adminbar");
 Adminyo = new Mongo.Collection("adminyo");
+Admintheodo = new Mongo.Collection("admintheodo");
 
 Router.route('home', {path:'/'});
 Router.route('admin', {path:'/adminyo'});
 Router.route('adminbar', {path:'/adminbar'});
+Router.route('admintheodo', {path:'/admintheodo'});
 
 Router.configure({
 	loadingTemplate:'loading'
-})
+});
 
-var isButtonEnabled = function()
-{
+var isButtonEnabled = function(){
 	var resetDate = Compteur.findOne().resetDate;
 
 	if (!resetDate)
@@ -144,6 +145,9 @@ if(Meteor.isServer) {
 	Meteor.publish("adminyo", function() {
 		return Adminyo.find({});
 	});
+	Meteor.publish("admintheodo", function() {
+		return Admintheodo.find({});
+	});
     Meteor.call("config");
 }
  
@@ -155,10 +159,11 @@ if (Meteor.isClient) {
     Meteor.subscribe("pizza");
     Meteor.subscribe("adminbar");
     Meteor.subscribe("adminyo");
+    Meteor.subscribe("admintheodo");
 	
 	Template.registerHelper('counter', function () {
-			return Compteur.findOne().compt;
-		});
+		return Compteur.findOne().compt;
+	});
 
 	Template.Home.onRendered(function()
 		{
@@ -190,10 +195,11 @@ if (Meteor.isClient) {
 			return Compteur.findOne().compt == value;
 		},
         isConnected :function(){
-            return Meteor.userId();
+            return Meteor.userId() || Session.get("isAdminTheodo"); //si l'utilisateur est adminTheodo alors il peut se connecter
         },
         userName : function(){
-            return Meteor.user().services.myecp.first_name;
+            var name = (Session.get("isAdminTheodo")) ? Session.get("adminTheodoName"):Meteor.user().services.myecp.first_name;
+            return name;
         },
         affichePlat : function(){
         	return Plat.find({checked: true});
@@ -224,7 +230,9 @@ if (Meteor.isClient) {
 
 	Template.Admin.helpers({
 		isAdminYo: function(){
-        	return Meteor.userId() && Adminyo.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0;
+			console.log(Session.get("isAdminTheodo"));
+        	return ((Meteor.userId() && Adminyo.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
+        		|| Session.get('isAdminTheodo')); //Si l'utilisateur est adminTheodo alors il est adminYo
         }
 	});
 
@@ -253,12 +261,13 @@ if (Meteor.isClient) {
 	
 	Template.Adminbar.helpers({
 		isAdminBar: function(){
-        	return Meteor.userId() && Adminbar.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0;
+        	return ((Meteor.userId() && Adminbar.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
+        		|| Session.get('isAdminTheodo')); //Si l'utilisateur est adminTheodo alors il est adminBar
         },
-		listPizza: function(event){
+		listPizza: function(){
 			return Pizza.find({});
 		},
-		listPlat: function(event){
+		listPlat: function(){
 			return Plat.find({});
 		}
 	});
@@ -283,6 +292,31 @@ if (Meteor.isClient) {
 				} else {
 					throw new Meteor.Error("LOL");
 				}});
+		}
+	});
+
+	Template.Admintheodo.helpers({
+		isAdminTheodo : function(){
+			return Session.get('isAdminTheodo');
+		},
+		adminTheodoName : function(){
+			return Session.get('adminTheodoName');
+		}
+	});
+
+	Template.Admintheodo.events({
+		"submit .connectform":function(event){
+			event.preventDefault();
+			if (/@theodo\.fr$/.test(event.target.textinput.value) && Admintheodo.find({mdp : event.target.passwordinput.value }).fetch().length != 0){ 
+				Session.setPersistent("isAdminTheodo", true);
+				var prenom = event.target.textinput.value.split(/.@theodo.fr/)[0];
+				Session.setPersistent("adminTheodoName", prenom.charAt(0).toUpperCase() + prenom.substring(1).toLowerCase());
+			}
+
+		},
+		"submit .adminform":function(event){
+			event.preventDefault();
+			Meteor.call("serverNotification", event.target.textarea.value, "Centrale YO");
 		}
 	});
 }

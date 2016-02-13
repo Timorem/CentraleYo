@@ -25,3 +25,4 @@ raix:push
 fuego:myecp
 fuego:account-myecp
 service-configuration
+u2622:persistent-session

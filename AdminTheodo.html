@@ -1,0 +1,62 @@
+<template name="Admintheodo">
+Page des admins Theodo
+{{#if isAdminTheodo}}
+ <!-- réalisé sur http://bootsnipp.com/forms -->
+	<form class="adminform form-horizontal">
+		<fieldset>
+
+			<!-- Textarea -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="textarea">Notification</label>
+			  <div class="col-md-4">                     
+			    <textarea class="form-control" id="textarea" name="textarea">Message à envoyer</textarea>
+			  </div>
+			</div>
+
+			<!-- Button -->
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="send"></label>
+			  <div class="col-md-4">
+			    <button id="send" name="send" type="submit" class="btn btn-primary">Envoyer</button>
+			  </div>
+			</div>
+
+		</fieldset>
+	</form>
+{{else}}
+    <h1>Connecte-toi</h1>
+
+		<form class="connectform form-horizontal">
+		<fieldset>
+
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="textinput">login</label>  
+		  <div class="col-md-4">
+		  <input id="textinput" name="textinput" type="text" placeholder="your login" class="form-control input-md">
+		    
+		  </div>
+		</div>
+
+		<!-- Password input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="passwordinput">Password</label>
+		  <div class="col-md-4">
+		    <input id="passwordinput" name="passwordinput" type="password" placeholder="your password" class="form-control input-md">
+		    
+		  </div>
+		</div>
+
+		<!-- Button -->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="singlebutton"></label>
+		  <div class="col-md-4">
+		    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Sign in</button>
+		  </div>
+		</div>
+
+		</fieldset>
+		</form>
+
+{{/if}}
+</template>
