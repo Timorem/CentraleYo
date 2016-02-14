@@ -4,25 +4,44 @@
 
     {{#if isConnected}}
         <h1>HELLO {{userName}}</h1>
+            <div class="flip-clock-wrapper">
+                <div class="clock"></div>
+            </div>
+        {{#if isHomePageHome}}
+            {{#if isButtonActivated}}
+                <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+            {{else}}
+                <button class="neb disabled"><img id="button-gif" src="img/BeerPong .gif" height="300" width="300"/></button>
+            {{/if}}
+        {{/if}}
+        {{#if isHomePageCutlery}}
+        <!-- Afficher les plats disponnibles -->
+            <legend>Petits plats disponnibles</legend>
+            <ul style="list-style-type: none;">
+                {{#each affichePlat}}
+                <li>{{name}}</li>
+                {{/each}}
+            </ul>
+            <legend>Pizzas disponnibles</legend>
+            <ul style="list-style-type: none;">
+                {{#each affichePizza}}
+                <li>{{name}}</li>
+                {{/each}}
+            </ul>
+        {{/if}}
+        {{#if isHomePageBeer}}
+        <!-- Afficher le tournoi de bière pong -->
 
-        <div class="flip-clock-wrapper">
-            <div class="clock"></div>
-        </div>
-
-        {{#if isButtonActivated}}
-            <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
-        {{else}}
-            <button class="neb disabled"><img id="button-gif" src="img/BeerPong .gif" height="300" width="300"/></button>
         {{/if}}
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#"><i class="fa fa-cutlery"></i></a>
+                        <li class="{{#if isHomePageCutlery}}active{{/if}}"><a href="#"><i class="fa fa-cutlery"></i></a>
                         </li>
-                        <li class="active"><a href="#"><i class="fa fa-home"></i></a>
+                        <li class="{{#if isHomePageHome}}active{{/if}}"><a href="#"><i class="fa fa-home"></i></a>
                         </li>
-                        <li><a href="#"><i class="fa fa-beer"></i></a>
+                        <li class="{{#if isHomePageBeer}}active{{/if}}"><a href="#"><i class="fa fa-beer"></i></a>
                         </li>
                     </ul>
                 </div>

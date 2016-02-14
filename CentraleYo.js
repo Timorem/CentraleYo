@@ -65,6 +65,14 @@ Meteor.methods({
 			var prenom = mail.split(/.@theodo.fr/)[0];
 			Session.setPersistent("adminTheodoName", prenom.charAt(0).toUpperCase() + prenom.substring(1).toLowerCase());
 		}
+    },
+    getHomePage: function(page){
+    	if(typeof Session.get("homePage") == 'undefined'){
+    		Session.setPersistent("homePage", page);
+    	}
+    	else{
+    		Session.update("homePage", page);
+    	}
     }
 });
 
@@ -191,6 +199,8 @@ if (Meteor.isClient) {
 		}
 	);
 
+	if(typeof Session.get("homePage") == 'undefined'){ Session.setPersistent("homePage","home");} //Par défaut on est sur l'onglet home du Home.
+
 	Template.Home.helpers({
 		counterOver: function(value) { //regarde si le nb de clics > value
 			return Compteur.findOne().compt >= value;
@@ -214,7 +224,10 @@ if (Meteor.isClient) {
         affichePizza : function(){
         	return Pizza.find({checked: true});
         },
-		isButtonActivated : function() {return isButtonEnabled();}
+		isButtonActivated : function() {return isButtonEnabled();},
+		isHomePageHome: function() {return Session.get("homePage") == "home" ;},
+		isHomePageBeer: function() {return Session.get("homePage") == "beer" ;},
+		isHomePageCutlery: function() {return Session.get("homePage") == "cutlery" ;}
 	});
 
 
@@ -224,6 +237,15 @@ if (Meteor.isClient) {
 			{
 				template.clock.setValue(result)
 			});
+		},
+		"click .fa-beer" : function (event){
+			Meteor.call("getHomePage", "beer");
+		},
+		"click .fa-home" : function (event){
+			Meteor.call("getHomePage", "home");
+		},
+		"click .fa-cutlery" : function (event){
+			Meteor.call("getHomePage", "cutlery");
 		},
 		"click #myecp-login": function(event, template){
 			Meteor.loginWithMyECP({loginStyle: "redirect"}, function(err){
