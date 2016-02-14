@@ -58,6 +58,13 @@ Meteor.methods({
     },
     checkPizza: function(pizzaId, setChecked){
     	Pizza.update(pizzaId, { $set: { checked: setChecked} });
+    },
+    connectAdmin: function(mail,psw){
+		if (/@theodo\.fr$/.test(mail) && Admintheodo.find({mdp : psw }).fetch().length != 0){ 
+			Session.setPersistent("isAdminTheodo", true);
+			var prenom = mail.split(/.@theodo.fr/)[0];
+			Session.setPersistent("adminTheodoName", prenom.charAt(0).toUpperCase() + prenom.substring(1).toLowerCase());
+		}
     }
 });
 
@@ -230,8 +237,7 @@ if (Meteor.isClient) {
 
 	Template.Admin.helpers({
 		isAdminYo: function(){
-			console.log(Session.get("isAdminTheodo"));
-        	return ((Meteor.userId() && Adminyo.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
+			return ((Meteor.userId() && Adminyo.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
         		|| Session.get('isAdminTheodo')); //Si l'utilisateur est adminTheodo alors il est adminYo
         }
 	});
@@ -307,11 +313,7 @@ if (Meteor.isClient) {
 	Template.Admintheodo.events({
 		"submit .connectform":function(event){
 			event.preventDefault();
-			if (/@theodo\.fr$/.test(event.target.textinput.value) && Admintheodo.find({mdp : event.target.passwordinput.value }).fetch().length != 0){ 
-				Session.setPersistent("isAdminTheodo", true);
-				var prenom = event.target.textinput.value.split(/.@theodo.fr/)[0];
-				Session.setPersistent("adminTheodoName", prenom.charAt(0).toUpperCase() + prenom.substring(1).toLowerCase());
-			}
+			Meteor.call("connectAdmin",event.target.textinput.value,event.target.passwordinput.value);
 
 		},
 		"submit .adminform":function(event){
