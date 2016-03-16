@@ -1,19 +1,16 @@
 Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clics
 Plat = new Mongo.Collection("plat"); //servira à contenir les plats
 Pizza = new Mongo.Collection("pizza");
-Adminbar = new Mongo.Collection("adminbar");
-Bouteille = new Mongo.Collection("bouteille");
+Adminneb = new Mongo.Collection("adminneb");
+Beer = new Mongo.Collection("Beer");
 Adminyo = new Mongo.Collection("adminyo");
 Admintheodo = new Mongo.Collection("admintheodo");
 
 Router.route('home', {path:'/'});
 Router.route('admin', {path:'/adminyo'});
-Router.route('adminbar', {path:'/adminbar'});
+Router.route('adminneb', {path:'/adminneb'});
 Router.route('admintheodo', {path:'/admintheodo'});
 
-Router.configure({
-	loadingTemplate:'loading'
-});
 
 var isButtonEnabled = function(){
 	var resetDate = Compteur.findOne().resetDate;
@@ -57,8 +54,8 @@ Meteor.methods({
     checkPlat: function(platId, setChecked){
     	Plat.update(platId, { $set: { checked: setChecked}});
     },
-    checkBouteille: function(bouteilleId, setChecked){
-    	Bouteille.update(bouteilleId, { $set: { checked: setChecked}});
+    checkBeer: function(BeerId, setChecked){
+    	Beer.update(BeerId, { $set: { checked: setChecked}});
     },
     checkPizza: function(pizzaId, setChecked){
     	Pizza.update(pizzaId, { $set: { checked: setChecked} });
@@ -125,24 +122,13 @@ if(Meteor.isServer) {
 		Pizza.insert({name:"Chévre"});
 		Pizza.insert({name:"Chévre miel"});
 	}
-	
-	if (!Adminbar.findOne()) {
-		Adminbar.insert({mail:"erwan.le-jumeau-de-kergaradec@student.ecp.fr"});
-		Adminbar.insert({mail:"valentin.condette@student.ecp.fr"});
-		Adminbar.insert({mail:"valentine.joseph@student.ecp.fr"});
-		Adminbar.insert({mail:"donatien.criaud@student.ecp.fr"});
-		Adminbar.insert({mail:"edouard.borel@student.ecp.fr"});
-		Adminbar.insert({mail:"achraf.gharbi@student.ecp.fr"});
-		Adminbar.insert({mail:"thomas.walter@student.ecp.fr"});
-		Adminbar.insert({mail:"laurent.lin@student.ecp.fr"});
-		Adminbar.insert({mail:"gabrielle.rappaport@student.ecp.fr"});
-		Adminbar.insert({mail:"thomas.bellec@student.ecp.fr"});
-	}
 
 	if (!Adminneb.findOne()) {
 		Adminneb.insert({mail:"erwan.le-jumeau-de-kergaradec@student.ecp.fr"});
+		Adminneb.insert({mail:"valentine.joseph@student.ecp.fr"});
 		Adminneb.insert({mail:"maxime.dieudonne@student.ecp.fr"});
-		Adminneb.insert({mail:"valentin.condette@student.ecp.fr"});
+		Adminneb.insert({mail:"valentin.condette@student.ecp.fr"});		
+		Adminneb.insert({mail:"edouard.borel@student.ecp.fr"});
 		Adminneb.insert({mail:"henri.desesquelles@student.ecp.fr"});
 		Adminneb.insert({mail:"achraf.gharbi@student.ecp.fr"});
 		Adminneb.insert({mail:"thomas.walter@student.ecp.fr"});
@@ -151,38 +137,34 @@ if(Meteor.isServer) {
 		Adminneb.insert({mail:"thomas.bellec@student.ecp.fr"});
 	}
 
-	if(!Bar.findOne()) {
-		Bar.insert({name:"Kro (Pinte)",price:2.5});
-		Bar.insert({name:"Cidre (Pinte)",price:2});
-		Bar.insert({name:"Bière du mois (Pinte)",price:3.5});
-		
-
-	}
-	if(!Bouteille.findOne()) {
-		Bar.insert({name:"Tigre bock (bouteille)",price:1.2});
-		Bar.insert({name:"1664 blanche (bouteille)",price:2});
-		Bar.insert({name:"1664 (canette)",price:1});
-		Bar.insert({name:"Adelscott (bouteille)",price:2.5});
-		Bar.insert({name:"Carlsberg (bouteille)",price:1.9});
-		Bar.insert({name:"BChouffe (bouteille)",price:2.4});
-		Bar.insert({name:"Corona (bouteille)",price:2.4});
-		Bar.insert({name:"Cuvée des trolls 7° (bouteille)",price:1.6});
-		Bar.insert({name:"Delirium 8.5° (bouteille)",price:2.6});
-		Bar.insert({name:"Desperados 5.9° (bouteille)",price:2.3});
-		Bar.insert({name:"Heineken 5° (bouteille)",price:1.6});
-		Bar.insert({name:"Hoegaarden 4,9° (bouteille)",price:1.8});
-		Bar.insert({name:"Karmeliet triple (bouteille)",price:2});
-		Bar.insert({name:"Kasteel blonde (bouteille)",price:2});
-		Bar.insert({name:"Kasteel brune 11° (bouteille)",price:2.2});
-		Bar.insert({name:"Kwak 8,4° (bouteille)",price:1.6});
-		Bar.insert({name:"Pêcheresse 2,5° (bouteille)",price:1.6});
-		Bar.insert({name:"Queue de charrue (bouteille)",price:1.7});
-		Bar.insert({name:"Skoll 6° (bouteille)",price:1.6});
-		Bar.insert({name:"Trappiste 8° (bouteille)",price:2.6});
-		Bar.insert({name:"Trappsite 10° (bouteille)",price:3.4});
-		Bar.insert({name:"Coca Cola (bouteille)",price:1.2});
-		Bar.insert({name:"Scweppes (bouteille)",price:1});
-		Bar.insert({name:"Twist (bouteille)",price:1});
+	if(!Beer.findOne()) {
+		Beer.insert({name:"Kro (Pinte)",price:2.5});
+		Beer.insert({name:"Cidre (Pinte)",price:2});
+		Beer.insert({name:"Bière du mois (Pinte)",price:3.5});
+		Beer.insert({name:"Tigre bock (Bouteille)",price:1.2});
+		Beer.insert({name:"1664 blanche (Bouteille)",price:2});
+		Beer.insert({name:"1664 (canette)",price:1});
+		Beer.insert({name:"Adelscott (Bouteille)",price:2.5});
+		Beer.insert({name:"Carlsberg (Bouteille)",price:1.9});
+		Beer.insert({name:"BChouffe (Bouteille)",price:2.4});
+		Beer.insert({name:"Corona (Bouteille)",price:2.4});
+		Beer.insert({name:"Cuvée des trolls 7° (Bouteille)",price:1.6});
+		Beer.insert({name:"Delirium 8.5° (Bouteille)",price:2.6});
+		Beer.insert({name:"Desperados 5.9° (Bouteille)",price:2.3});
+		Beer.insert({name:"Heineken 5° (Bouteille)",price:1.6});
+		Beer.insert({name:"Hoegaarden 4,9° (Bouteille)",price:1.8});
+		Beer.insert({name:"Karmeliet triple (Bouteille)",price:2});
+		Beer.insert({name:"Kasteel blonde (Bouteille)",price:2});
+		Beer.insert({name:"Kasteel brune 11° (Bouteille)",price:2.2});
+		Beer.insert({name:"Kwak 8,4° (Bouteille)",price:1.6});
+		Beer.insert({name:"Pêcheresse 2,5° (Bouteille)",price:1.6});
+		Beer.insert({name:"Queue de charrue (Bouteille)",price:1.7});
+		Beer.insert({name:"Skoll 6° (Bouteille)",price:1.6});
+		Beer.insert({name:"Trappiste 8° (Bouteille)",price:2.6});
+		Beer.insert({name:"Trappsite 10° (Bouteille)",price:3.4});
+		Beer.insert({name:"Coca Cola (Bouteille)",price:1.2});
+		Beer.insert({name:"Scweppes (Bouteille)",price:1});
+		Beer.insert({name:"Twist (Bouteille)",price:1});
 
 
 	}
@@ -208,11 +190,11 @@ if(Meteor.isServer) {
 	Meteor.publish("pizza", function() {
 		return Pizza.find({});
 	});
-	Meteor.publish("bouteille", function() {
-		return Bouteille.find({});
+	Meteor.publish("Beer", function() {
+		return Beer.find({});
 	});
-	Meteor.publish("adminbar", function() {
-		return Adminbar.find({});
+	Meteor.publish("adminneb", function() {
+		return Adminneb.find({});
 	});
 	Meteor.publish("adminyo", function() {
 		return Adminyo.find({});
@@ -228,9 +210,9 @@ if (Meteor.isClient) {
 	Meteor.subscribe("compteur");
     Meteor.subscribe("userData");
 	Meteor.subscribe("plat");
-	Meteor.subscribe("bouteille");
+	Meteor.subscribe("Beer");
     Meteor.subscribe("pizza");
-    Meteor.subscribe("adminbar");
+    Meteor.subscribe("adminneb");
     Meteor.subscribe("adminyo");
     Meteor.subscribe("admintheodo");
 	
@@ -282,8 +264,8 @@ if (Meteor.isClient) {
         affichePizza : function(){
         	return Pizza.find({checked: true});
         },
-        afficheBouteille : function(){
-        	return Bouteille.find({checked: true});
+        afficheBeer : function(){
+        	return Beer.find({checked: true});
         },
 		isButtonActivated : function() {return isButtonEnabled();},
 		isHomePageHome: function() {return Session.get("homePage") == "home" ;},
@@ -349,9 +331,9 @@ if (Meteor.isClient) {
 		}
 	});
 	
-	Template.Adminbar.helpers({
-		isAdminBar: function(){
-        	return ((Meteor.userId() && Adminbar.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
+	Template.Adminneb.helpers({
+		isAdminNeb: function(){
+        	return ((Meteor.userId() && Adminneb.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
         		|| Session.get('isAdminTheodo')); //Si l'utilisateur est adminTheodo alors il est adminBar
         },
 		listPizza: function(){
@@ -359,10 +341,13 @@ if (Meteor.isClient) {
 		},
 		listPlat: function(){
 			return Plat.find({});
+		},
+		listBeer: function(){
+			return Beer.find({});
 		}
 	});
 
-	Template.Adminbar.events({
+	Template.Adminneb.events({
 		"submit .adminform":function(event){
 			event.preventDefault();
 			Meteor.call("serverNotification", event.target.textarea.value, "Centrale YO");	
@@ -382,38 +367,10 @@ if (Meteor.isClient) {
 				} else {
 					throw new Meteor.Error("LOL");
 				}});
-		}
-	});
-
-	Template.Adminneb.helpers({
-		isAdminNeb: function(){
-        	return ((Meteor.userId() && Adminneb.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
-        		|| Session.get('isAdminTheodo')); //Si l'utilisateur est adminTheodo alors il est adminBar
-        },
-		listBeer: function(){
-			return Bar.find({});
-		},
-		listBouteille: function(){
-			return Bouteille.find({});
-		}
-	});
-
-	Template.Adminneb.events({
-		"submit .adminform":function(event){
-			event.preventDefault();
-			Meteor.call("serverNotification", event.target.textarea.value, "Centrale YO");	
 		},
 		"click .beer-check":function(event){
 			event.preventDefault();
 			Meteor.call("checkBeer", this._id, ! this.checked);
-		},
-		"click #myecp-login": function(event, template){
-			Meteor.loginWithMyECP({loginStyle: "redirect"}, function(err){
-				if (err) {
-					throw new Meteor.Error(err);
-				} else {
-					throw new Meteor.Error("LOL");
-				}});
 		}
 	});
 

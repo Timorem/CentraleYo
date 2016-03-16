@@ -21,6 +21,35 @@ Page des admins de la Neb
 			  </div>
 			</div>
 
+            <!-- Multiple Checkboxes -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="checkboxes">Pizza</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        {{#each listPizza}}
+                            <label for="checkboxes" class="pizza-check">
+                                <input type="checkbox" name="checkboxes" id="checkboxes" checked="{{checked}}" />
+                                {{name}}
+                            </label>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="checkboxes">Petits plats</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        {{#each listPlat}}
+                            <label for="checkboxes" class="plat-check">
+                                <input type="checkbox" name="checkboxes" id="checkboxes" checked="{{checked}}" />
+                                {{name}}
+                            </label>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+
 			<!-- Multiple Checkboxes -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="checkboxes">Beer</label>

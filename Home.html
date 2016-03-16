@@ -60,50 +60,6 @@
             <h1>Connecte-toi sur MyECP</h1>
             <button id="myecp-login" class="button button-positive">Se connecter !</button>
         {{/if}}
-        {{#if isHomePageCutlery}}
-        <!-- Afficher les plats disponibles -->
-            <legend>Petits plats disponibles</legend>
-            <ul style="list-style-type: none; padding:0;">
-                {{#each affichePlat}}
-                <li>{{name}} ( {{price}} €)</li>
-                {{/each}}
-            </ul>
-            <legend>Pizzas disponibles</legend>
-            <ul style="list-style-type: none; padding:0;">
-                {{#each affichePizza}}
-                <li>{{name}} ( {{price}} €)</li>
-                {{/each}}
-            </ul>
-        {{/if}}
-        {{#if isHomePageBeer}}
-        <!-- Afficher les boissons disponibles-->
-            <legend>Bières disponibles</legend>
-            <ul style="list-style-type: none; padding:0;">
-                {{#each afficheBeer}}
-                <li>{{name}} ( {{price}} €)</li> 
-                {{/each}}
-            </ul>
-            <legend>Bières bouteilles disponibles</legend>
-            <ul style="list-style-type: none; padding:0;">
-                {{#each afficheBouteille}}
-                <li>{{name}} ( {{price}} €)</li>
-                {{/each}}
-            </ul>
-        {{/if}}
-        <nav class="navbar navbar-default navbar-fixed-bottom">
-            <div class="container">
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="{{#if isHomePageCutlery}}active{{/if}}"><a href="#"><i class="fa fa-cutlery"></i></a>
-                        </li>
-                        <li class="{{#if isHomePageHome}}active{{/if}}"><a href="#"><i class="fa fa-home"></i></a>
-                        </li>
-                        <li class="{{#if isHomePageBeer}}active{{/if}}"><a href="#"><i class="fa fa-beer"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
     {{else}}
         <h1>Pas de connexion internet, en attente de connexion ...</h1>
     {{/if}}
