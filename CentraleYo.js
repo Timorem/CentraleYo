@@ -111,19 +111,19 @@ if(Meteor.isServer) {
 	}
 
 	if (!Pizza.findOne()) {
-		Pizza.insert({name:"Kebab"});
-		Pizza.insert({name:"Royale"});
-		Pizza.insert({name:"Saumon"});
-		Pizza.insert({name:"Tomate mozzarella"});
-		Pizza.insert({name:"Boeuf chorizo"});
-		Pizza.insert({name:"4 Fromages"});
-		Pizza.insert({name:"Tartiflette"});
-		Pizza.insert({name:"Jambon speck"});
-		Pizza.insert({name:"Campagnarde"});
-		Pizza.insert({name:"Poulet moutarde"});
-		Pizza.insert({name:"Chorizo"});
-		Pizza.insert({name:"Chévre"});
-		Pizza.insert({name:"Chévre miel"});
+		Pizza.insert({name:"Kebab", price:2.5});
+		Pizza.insert({name:"Royale", price:2.5});
+		Pizza.insert({name:"Saumon", price:3.5});
+		Pizza.insert({name:"Tomate mozzarella", price:2.5});
+		Pizza.insert({name:"Boeuf chorizo", price:4});
+		Pizza.insert({name:"4 Fromages", price:3.5});
+		Pizza.insert({name:"Tartiflette", price:3});
+		Pizza.insert({name:"Jambon speck", price:4});
+		Pizza.insert({name:"Campagnarde", price:3});
+		Pizza.insert({name:"Poulet moutarde", price:3});
+		Pizza.insert({name:"Chorizo", price:3});
+		Pizza.insert({name:"Chévre", price:3});
+		Pizza.insert({name:"Chévre miel", price:4});
 	}
 	
 	if (!Adminbar.findOne()) {
