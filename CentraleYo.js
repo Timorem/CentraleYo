@@ -97,18 +97,19 @@ if(Meteor.isServer) {
 	}
 
 	if (!Plat.findOne()){
-		Plat.insert({name:"Tartiflette",price:});
-		Plat.insert({name:"Poulet Curry",price:});
-		Plat.insert({name:"Gnocci chevre epinard",price:});
-		Plat.insert({name:"Poulet pates champi",price:});
-		Plat.insert({name:"Risotto",price:});
-		Plat.insert({name:"Lasagne",price:});
-		Plat.insert({name:"Poulet basquaise",price:});
-		Plat.insert({name:"Chili con carne",price:});
-		Plat.insert({name:"Tajine de poulet",price:});
-		Plat.insert({name:"Poulet teriyaki",price:});
-		Plat.insert({name:"Raviolis ricotta épinard",price:});
-		Plat.insert({name:"Poulet sauce citron purée de patates douces",price:});
+		Plat.insert({name:"Tout à 2 euros"});
+		Plat.insert({name:"Tartiflette"});
+		Plat.insert({name:"Poulet Curry"});
+		Plat.insert({name:"Gnocci chevre epinard"});
+		Plat.insert({name:"Poulet pates champi"});
+		Plat.insert({name:"Risotto"});
+		Plat.insert({name:"Lasagne"});
+		Plat.insert({name:"Poulet basquaise"});
+		Plat.insert({name:"Chili con carne"});
+		Plat.insert({name:"Tajine de poulet"});
+		Plat.insert({name:"Poulet teriyaki"});
+		Plat.insert({name:"Raviolis ricotta épinard"});
+		Plat.insert({name:"Poulet sauce citron purée de patates douces"});
 	}
 
 	if (!Pizza.findOne()) {
@@ -151,7 +152,9 @@ if(Meteor.isServer) {
 	}
 
 	if(!Bar.findOne()) {
-		Bar.insert({name:"Kro (Peinte)",price:2.5});
+		Bar.insert({name:"Kro (Pinte)",price:2.5});
+		Bar.insert({name:"Cidre (Pinte)",price:2});
+		Bar.insert({name:"Bière du mois (Pinte)",price:3.5});
 	}
 
 	if (!Adminyo.findOne()) {
