@@ -1,6 +1,6 @@
-<template name="Adminkhafet">
-Page des admins de la Khafet
-{{#if isAdminBar}}
+<template name="Adminneb">
+Page des admins de la Neb
+{{#if isAdminNeb}}
  <!-- réalisé sur http://bootsnipp.com/forms -->
 	<form class="adminform form-horizontal">
 		<fieldset>
@@ -23,25 +23,11 @@ Page des admins de la Khafet
 
 			<!-- Multiple Checkboxes -->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="checkboxes">Pizza</label>
+				<label class="col-md-4 control-label" for="checkboxes">Beer</label>
 				<div class="col-md-4">
 			  		<div class="checkbox">		
-		    			{{#each listPizza}}
-		    				<label for="checkboxes" class="pizza-check">
-			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{checked}}" />
-								{{name}} ( {{price}} €)
-							</label>
-		    			{{/each}}
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="checkboxes">Petits plats</label>
-				<div class="col-md-4">
-			  		<div class="checkbox">		
-		    			{{#each listPlat}}
-		    				<label for="checkboxes" class="plat-check">
+		    			{{#each listBeer}}
+		    				<label for="checkboxes" class="beer-check">
 			    				<input type="checkbox" name="checkboxes" id="checkboxes" checked="{{checked}}" />
 								{{name}} ( {{price}} €)
 							</label>

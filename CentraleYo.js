@@ -45,7 +45,7 @@ Meteor.methods({
 		Compteur.update({}, {$set: {compt: 0, resetDate: Date()}}); //on incrémente le compteur
     },
     config:function(){
-        ServiceConfiguration.configurations.remove({service:'myecp'})
+        ServiceConfiguration.configurations.remove({service:'myecp'});
 
         ServiceConfiguration.configurations.insert({
             service:'myecp',

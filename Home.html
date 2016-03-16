@@ -4,35 +4,44 @@
         <h1 class="tousalaneb">TOUS A LA NEB !</h1>
 
         {{#if isConnected}}
-                <div class="flip-clock-wrapper">
-                    <div class="clock"></div>
-                </div>
+            <div class="flip-clock-wrapper">
+                <div class="clock"></div>
+            </div>
             {{#if isHomePageHome}}
                 {{#if isButtonActivated}}
-                    <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+                    <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300"
+                                                     width="300"/></button>
                 {{else}}
-                    <button class="neb disabled"><img id="button-gif" src="img/BeerPong .gif" height="300" width="300"/></button>
+                    <button class="neb disabled"><img id="button-gif" src="img/BeerPong .gif" height="300" width="300"/>
+                    </button>
                 {{/if}}
             {{/if}}
             {{#if isHomePageCutlery}}
-            <!-- Afficher les plats disponibles -->
+                <!-- Afficher les plats disponibles -->
                 <legend>Petits plats disponibles</legend>
-                <ul style="list-style-type: none; padding:0px">
+                <ul style="list-style-type: none; padding:0;">
                     {{#each affichePlat}}
-                    <li>{{name}}</li>
+                        <li>{{name}} ( {{price}} €)</li>
                     {{/each}}
                 </ul>
                 <legend>Pizzas disponibles</legend>
-                <ul style="list-style-type: none; padding:0px">
+                <ul style="list-style-type: none; padding:0;">
                     {{#each affichePizza}}
-                    <li>{{name}}</li>
+                        <li>{{name}} ( {{price}} €)</li>
                     {{/each}}
                 </ul>
             {{/if}}
             {{#if isHomePageBeer}}
-            <!-- Afficher le tournoi de bière pong -->
+                <!-- Afficher les boissons disponibles-->
+                <legend>Bières disponibles</legend>
+                <ul style="list-style-type: none; padding:0;">
+                    {{#each afficheBeer}}
+                        <li>{{name}} ( {{price}} €)</li>
+                    {{/each}}
+                </ul>
 
             {{/if}}
+
             <nav class="navbar navbar-default navbar-fixed-bottom">
                 <div class="container">
                     <div class="collapse navbar-collapse">
@@ -55,13 +64,20 @@
         <h1>Pas de connexion internet, en attente de connexion ...</h1>
     {{/if}}
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-         ga('create', 'UA-73589420-1', 'auto');
-         ga('send', 'pageview');
+        ga('create', 'UA-73589420-1', 'auto');
+        ga('send', 'pageview');
 
     </script>
 </template>
