@@ -2,6 +2,7 @@ Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clic
 Plat = new Mongo.Collection("plat"); //servira à contenir les plats
 Pizza = new Mongo.Collection("pizza");
 Bar = new Mongo.Collection("bar");
+Bouteille = new Mongo.Collection("bouteille");
 Adminyo = new Mongo.Collection("adminyo");
 Adminbar = new Mongo.Collection("adminbar"); //pas bar mais khafet
 Adminneb = new Mongo.Collection("adminneb"); //neb (= bar)
@@ -58,6 +59,9 @@ Meteor.methods({
     },
     checkPlat: function(platId, setChecked){
     	Plat.update(platId, { $set: { checked: setChecked}});
+    },
+    checkBouteille: function(bouteilleId, setChecked){
+    	Bouteille.update(bouteilleId, { $set: { checked: setChecked}});
     },
     checkPizza: function(pizzaId, setChecked){
     	Pizza.update(pizzaId, { $set: { checked: setChecked} });
@@ -155,7 +159,38 @@ if(Meteor.isServer) {
 		Bar.insert({name:"Kro (Pinte)",price:2.5});
 		Bar.insert({name:"Cidre (Pinte)",price:2});
 		Bar.insert({name:"Bière du mois (Pinte)",price:3.5});
+		
+
 	}
+	if(!Bouteille.findOne()) {
+		Bar.insert({name:"Tigre bock (bouteille)",price:1.2});
+		Bar.insert({name:"1664 blanche (bouteille)",price:2);
+		Bar.insert({name:"1664 (canette)",price:1});
+		Bar.insert({name:"Adelscott (bouteille)",price:2.5});
+		Bar.insert({name:"Carlsberg (bouteille)",price:1.9});
+		Bar.insert({name:"BChouffe (bouteille)",price:2.4});
+		Bar.insert({name:"Corona (bouteille)",price:2.4});
+		Bar.insert({name:"Cuvée des trolls 7° (bouteille)",price:1.6});
+		Bar.insert({name:"Delirium 8.5° (bouteille)",price:2.6});
+		Bar.insert({name:"Desperados 5.9° (bouteille)",price:2.3});
+		Bar.insert({name:"Heineken 5° (bouteille)",price:1.6});
+		Bar.insert({name:"Hoegaarden 4,9° (bouteille)",price:1.8});
+		Bar.insert({name:"Karmeliet triple (bouteille)",price:2});
+		Bar.insert({name:"Kasteel blonde (bouteille)",price:2});
+		Bar.insert({name:"Kasteel brune 11° (bouteille)",price:2.2});
+		Bar.insert({name:"Kwak 8,4° (bouteille)",price:1.6});
+		Bar.insert({name:"Pêcheresse 2,5° (bouteille)",price:1.6});
+		Bar.insert({name:"Queue de charrue (bouteille)",price:1.7});
+		Bar.insert({name:"Skoll 6° (bouteille)",price:1.6});
+		Bar.insert({name:"Trappiste 8° (bouteille)",price:2.6});
+		Bar.insert({name:"Trappsite 10° (bouteille)",price:3.4});
+		Bar.insert({name:"Coca Cola (bouteille)",price:1.2});
+		Bar.insert({name:"Scweppes (bouteille)",price:1});
+		Bar.insert({name:"Twist (bouteille)",price:1});
+
+
+	}
+		
 
 	if (!Adminyo.findOne()) {
 		Adminyo.insert({mail:"thomas.walter@student.ecp.fr"});
@@ -180,6 +215,9 @@ if(Meteor.isServer) {
 	Meteor.publish("pizza", function() {
 		return Pizza.find({});
 	});
+	Meteor.publish("bouteille", function() {
+		return Bouteille.find({});
+	});
 	Meteor.publish("adminbar", function() {
 		return Adminbar.find({});
 	});
@@ -201,6 +239,7 @@ if (Meteor.isClient) {
     Meteor.subscribe("userData");
 	Meteor.subscribe("plat");
 	Meteor.subscribe("bar");
+	Meteor.subscribe("bouteille");
     Meteor.subscribe("pizza");
     Meteor.subscribe("adminbar");
     Meteor.subscribe("adminneb");
@@ -257,6 +296,9 @@ if (Meteor.isClient) {
         },
         afficheBeer : function(){
         	return Bar.find({checked: true});
+        },
+        afficheBouteille : function(){
+        	return Bouteille.find({checked: true});
         },
 		isButtonActivated : function() {return isButtonEnabled();},
 		isHomePageHome: function() {return Session.get("homePage") == "home" ;},
@@ -364,6 +406,9 @@ if (Meteor.isClient) {
         },
 		listBeer: function(){
 			return Bar.find({});
+		}
+		listBouteille: function(){
+			return Bouteille.find({});
 		}
 	});
 

@@ -37,6 +37,12 @@
                 <li>{{name}} ( {{price}} €)</li> 
                 {{/each}}
             </ul>
+            <legend>Bières bouteilles disponibles</legend>
+            <ul style="list-style-type: none; padding:0;">
+                {{#each afficheBouteille}}
+                <li>{{name}} ( {{price}} €)</li>
+                {{/each}}
+            </ul>
         {{/if}}
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
