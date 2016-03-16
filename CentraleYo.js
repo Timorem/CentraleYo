@@ -1,13 +1,16 @@
 Compteur = new Mongo.Collection("compteur"); //servira à contenir le nb de clics
 Plat = new Mongo.Collection("plat"); //servira à contenir les plats
 Pizza = new Mongo.Collection("pizza");
-Adminbar = new Mongo.Collection("adminbar");
+Bar = new Mongo.Collection("bar");
 Adminyo = new Mongo.Collection("adminyo");
+Adminbar = new Mongo.Collection("adminbar"); //pas bar mais khafet
+Adminneb = new Mongo.Collection("adminneb"); //neb (= bar)
 Admintheodo = new Mongo.Collection("admintheodo");
 
 Router.route('home', {path:'/'});
 Router.route('admin', {path:'/adminyo'});
-Router.route('adminbar', {path:'/adminbar'});
+Router.route('adminkhafet', {path:'/adminkhafet'});
+Router.route('adminneb', {path:'/adminneb'});
 Router.route('admintheodo', {path:'/admintheodo'});
 
 Router.configure({
@@ -59,6 +62,9 @@ Meteor.methods({
     checkPizza: function(pizzaId, setChecked){
     	Pizza.update(pizzaId, { $set: { checked: setChecked} });
     },
+    checkBeer: function(beerId, setChecked){
+    	Bar.update(beerId, { $set: { checked: setChecked} });
+    },
     connectAdmin: function(mail,psw){
 		if (/@theodo\.fr$/.test(mail) && Admintheodo.find({mdp : psw }).fetch().length != 0){ 
 			Session.setPersistent("isAdminTheodo", true);
@@ -91,39 +97,37 @@ if(Meteor.isServer) {
 	}
 
 	if (!Plat.findOne()){
-		Plat.insert({name:"Tartiflette"});
-		Plat.insert({name:"Poulet Curry"});
-		Plat.insert({name:"Gnocci chevre epinard"});
-		Plat.insert({name:"Poulet pates champi"});
-		Plat.insert({name:"Risotto"});
-		Plat.insert({name:"Lasagne"});
-		Plat.insert({name:"Poulet basquaise"});
-		Plat.insert({name:"Chili con carne"});
-		Plat.insert({name:"Tajine de poulet"});
-		Plat.insert({name:"Poulet teriyaki"});
-		Plat.insert({name:"Raviolis ricotta épinard"});
-		Plat.insert({name:"Poulet sauce citron purée de patates douces"});
+		Plat.insert({name:"Tartiflette",price:});
+		Plat.insert({name:"Poulet Curry",price:});
+		Plat.insert({name:"Gnocci chevre epinard",price:});
+		Plat.insert({name:"Poulet pates champi",price:});
+		Plat.insert({name:"Risotto",price:});
+		Plat.insert({name:"Lasagne",price:});
+		Plat.insert({name:"Poulet basquaise",price:});
+		Plat.insert({name:"Chili con carne",price:});
+		Plat.insert({name:"Tajine de poulet",price:});
+		Plat.insert({name:"Poulet teriyaki",price:});
+		Plat.insert({name:"Raviolis ricotta épinard",price:});
+		Plat.insert({name:"Poulet sauce citron purée de patates douces",price:});
 	}
 
 	if (!Pizza.findOne()) {
-		Pizza.insert({name:"Kebab"});
-		Pizza.insert({name:"Royale"});
-		Pizza.insert({name:"Saumon"});
-		Pizza.insert({name:"Tomate mozzarella"});
-		Pizza.insert({name:"Boeuf chorizo"});
-		Pizza.insert({name:"4 Fromages"});
-		Pizza.insert({name:"Tartiflette"});
-		Pizza.insert({name:"Jambon speck"});
-		Pizza.insert({name:"Campagnarde"});
-		Pizza.insert({name:"Poulet moutarde"});
-		Pizza.insert({name:"Chorizo"});
-		Pizza.insert({name:"Chévre"});
-		Pizza.insert({name:"Chévre miel"});
+		Pizza.insert({name:"Kebab",price:2.5);
+		Pizza.insert({name:"Royale",price:2.5});
+		Pizza.insert({name:"Saumon",price:3.5});
+		Pizza.insert({name:"Tomate mozzarella",price:2.5});
+		Pizza.insert({name:"Boeuf chorizo",price:4});
+		Pizza.insert({name:"4 Fromages",price:3.5});
+		Pizza.insert({name:"Tartiflette",price:3});
+		Pizza.insert({name:"Jambon speck",price:4});
+		Pizza.insert({name:"Campagnarde",price:4}); // verifier
+		Pizza.insert({name:"Poulet moutarde",price:3});
+		Pizza.insert({name:"Chorizo",price:4}); // verifier
+		Pizza.insert({name:"Chévre",price:3});
+		Pizza.insert({name:"Chévre miel",price:4});
 	}
 	
 	if (!Adminbar.findOne()) {
-		Adminbar.insert({mail:"erwan.le-jumeau-de-kergaradec@student.ecp.fr"});
-		Adminbar.insert({mail:"valentin.condette@student.ecp.fr"});
 		Adminbar.insert({mail:"valentine.joseph@student.ecp.fr"});
 		Adminbar.insert({mail:"donatien.criaud@student.ecp.fr"});
 		Adminbar.insert({mail:"edouard.borel@student.ecp.fr"});
@@ -132,6 +136,22 @@ if(Meteor.isServer) {
 		Adminbar.insert({mail:"laurent.lin@student.ecp.fr"});
 		Adminbar.insert({mail:"gabrielle.rappaport@student.ecp.fr"});
 		Adminbar.insert({mail:"thomas.bellec@student.ecp.fr"});
+	}
+
+	if (!Adminneb.findOne()) {
+		Adminneb.insert({mail:"erwan.le-jumeau-de-kergaradec@student.ecp.fr"});
+		Adminneb.insert({mail:"maxime.dieudonne@student.ecp.fr"});
+		Adminneb.insert({mail:"valentin.condette@student.ecp.fr"});
+		Adminneb.insert({mail:"henri.desesquelles@student.ecp.fr"});
+		Adminneb.insert({mail:"achraf.gharbi@student.ecp.fr"});
+		Adminneb.insert({mail:"thomas.walter@student.ecp.fr"});
+		Adminneb.insert({mail:"laurent.lin@student.ecp.fr"});
+		Adminneb.insert({mail:"gabrielle.rappaport@student.ecp.fr"});
+		Adminneb.insert({mail:"thomas.bellec@student.ecp.fr"});
+	}
+
+	if(!Bar.findOne()) {
+		Bar.insert({name:"Kro (Peinte)",price:2.5});
 	}
 
 	if (!Adminyo.findOne()) {
@@ -151,6 +171,9 @@ if(Meteor.isServer) {
   	Meteor.publish("plat", function() {
 		return Plat.find({});
 	});
+	Meteor.publish("bar", function() {
+		return Bar.find({});
+	});
 	Meteor.publish("pizza", function() {
 		return Pizza.find({});
 	});
@@ -163,6 +186,9 @@ if(Meteor.isServer) {
 	Meteor.publish("admintheodo", function() {
 		return Admintheodo.find({});
 	});
+	Meteor.publish("adminneb", function() {
+		return Adminneb.find({});
+	});
     Meteor.call("config");
 }
  
@@ -171,8 +197,10 @@ if (Meteor.isClient) {
 	Meteor.subscribe("compteur");
     Meteor.subscribe("userData");
 	Meteor.subscribe("plat");
+	Meteor.subscribe("bar");
     Meteor.subscribe("pizza");
     Meteor.subscribe("adminbar");
+    Meteor.subscribe("adminneb");
     Meteor.subscribe("adminyo");
     Meteor.subscribe("admintheodo");
 	
@@ -223,6 +251,9 @@ if (Meteor.isClient) {
         },
         affichePizza : function(){
         	return Pizza.find({checked: true});
+        },
+        afficheBeer : function(){
+        	return Bar.find({checked: true});
         },
 		isButtonActivated : function() {return isButtonEnabled();},
 		isHomePageHome: function() {return Session.get("homePage") == "home" ;},
@@ -287,7 +318,7 @@ if (Meteor.isClient) {
 		}
 	});
 	
-	Template.Adminbar.helpers({
+	Template.Adminkhafet.helpers({
 		isAdminBar: function(){
         	return ((Meteor.userId() && Adminbar.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
         		|| Session.get('isAdminTheodo')); //Si l'utilisateur est adminTheodo alors il est adminBar
@@ -300,7 +331,7 @@ if (Meteor.isClient) {
 		}
 	});
 
-	Template.Adminbar.events({
+	Template.Adminkhafet.events({
 		"submit .adminform":function(event){
 			event.preventDefault();
 			Meteor.call("serverNotification", event.target.textarea.value, "Centrale YO");	
@@ -312,6 +343,35 @@ if (Meteor.isClient) {
 		"click .plat-check":function(event){
 			event.preventDefault();
 			Meteor.call("checkPlat", this._id, ! this.checked);
+		},
+		"click #myecp-login": function(event, template){
+			Meteor.loginWithMyECP({loginStyle: "redirect"}, function(err){
+				if (err) {
+					throw new Meteor.Error(err);
+				} else {
+					throw new Meteor.Error("LOL");
+				}});
+		}
+	});
+
+	Template.Adminneb.helpers({
+		isAdminNeb: function(){
+        	return ((Meteor.userId() && Adminneb.find({mail : Meteor.user().services.myecp.mail}).fetch().length != 0)
+        		|| Session.get('isAdminTheodo')); //Si l'utilisateur est adminTheodo alors il est adminBar
+        },
+		listBeer: function(){
+			return Bar.find({});
+		}
+	});
+
+	Template.Adminneb.events({
+		"submit .adminform":function(event){
+			event.preventDefault();
+			Meteor.call("serverNotification", event.target.textarea.value, "Centrale YO");	
+		},
+		"click .beer-check":function(event){
+			event.preventDefault();
+			Meteor.call("checkBeer", this._id, ! this.checked);
 		},
 		"click #myecp-login": function(event, template){
 			Meteor.loginWithMyECP({loginStyle: "redirect"}, function(err){

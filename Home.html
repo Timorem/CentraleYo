@@ -17,21 +17,26 @@
         {{#if isHomePageCutlery}}
         <!-- Afficher les plats disponibles -->
             <legend>Petits plats disponibles</legend>
-            <ul style="list-style-type: none;">
+            <ul style="list-style-type: none; padding:0;">
                 {{#each affichePlat}}
-                <li>{{name}}</li>
+                <li>{{name}} ( {{price}} €)</li>
                 {{/each}}
             </ul>
             <legend>Pizzas disponibles</legend>
-            <ul style="list-style-type: none;">
+            <ul style="list-style-type: none; padding:0;">
                 {{#each affichePizza}}
-                <li>{{name}}</li>
+                <li>{{name}} ( {{price}} €)</li>
                 {{/each}}
             </ul>
         {{/if}}
         {{#if isHomePageBeer}}
-        <!-- Afficher le tournoi de bière pong -->
-
+        <!-- Afficher les boissons disponibles-->
+            <legend>Bières disponibles</legend>
+            <ul style="list-style-type: none; padding:0;">
+                {{#each afficheBeer}}
+                <li>{{name}} ( {{price}} €)</li> 
+                {{/each}}
+            </ul>
         {{/if}}
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
