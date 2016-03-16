@@ -1,55 +1,58 @@
 <template name="Home">
 
-    <h1 class="tousalaneb">TOUS A LA NEB !</h1>
+    {{#if isMeteorConnected}}
+        <h1 class="tousalaneb">TOUS A LA NEB !</h1>
 
-    {{#if isConnected}}
-        <h1>HELLO {{userName}}</h1>
-            <div class="flip-clock-wrapper">
-                <div class="clock"></div>
-            </div>
-        {{#if isHomePageHome}}
-            {{#if isButtonActivated}}
-                <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
-            {{else}}
-                <button class="neb disabled"><img id="button-gif" src="img/BeerPong .gif" height="300" width="300"/></button>
-            {{/if}}
-        {{/if}}
-        {{#if isHomePageCutlery}}
-        <!-- Afficher les plats disponibles -->
-            <legend>Petits plats disponibles</legend>
-            <ul style="list-style-type: none;">
-                {{#each affichePlat}}
-                <li>{{name}}</li>
-                {{/each}}
-            </ul>
-            <legend>Pizzas disponibles</legend>
-            <ul style="list-style-type: none;">
-                {{#each affichePizza}}
-                <li>{{name}}</li>
-                {{/each}}
-            </ul>
-        {{/if}}
-        {{#if isHomePageBeer}}
-        <!-- Afficher le tournoi de bière pong -->
-
-        {{/if}}
-        <nav class="navbar navbar-default navbar-fixed-bottom">
-            <div class="container">
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="{{#if isHomePageCutlery}}active{{/if}}"><a href="#"><i class="fa fa-cutlery"></i></a>
-                        </li>
-                        <li class="{{#if isHomePageHome}}active{{/if}}"><a href="#"><i class="fa fa-home"></i></a>
-                        </li>
-                        <li class="{{#if isHomePageBeer}}active{{/if}}"><a href="#"><i class="fa fa-beer"></i></a>
-                        </li>
-                    </ul>
+        {{#if isConnected}}
+                <div class="flip-clock-wrapper">
+                    <div class="clock"></div>
                 </div>
-            </div>
-        </nav>
+            {{#if isHomePageHome}}
+                {{#if isButtonActivated}}
+                    <button class="neb enabled"><img id="button-gif" src="img/Balle copie.png" height="300" width="300"/></button>
+                {{else}}
+                    <button class="neb disabled"><img id="button-gif" src="img/BeerPong .gif" height="300" width="300"/></button>
+                {{/if}}
+            {{/if}}
+            {{#if isHomePageCutlery}}
+            <!-- Afficher les plats disponibles -->
+                <legend>Petits plats disponibles</legend>
+                <ul style="list-style-type: none; padding:0px">
+                    {{#each affichePlat}}
+                    <li>{{name}}</li>
+                    {{/each}}
+                </ul>
+                <legend>Pizzas disponibles</legend>
+                <ul style="list-style-type: none; padding:0px">
+                    {{#each affichePizza}}
+                    <li>{{name}}</li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+            {{#if isHomePageBeer}}
+            <!-- Afficher le tournoi de bière pong -->
+
+            {{/if}}
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                <div class="container">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="{{#if isHomePageCutlery}}active{{/if}}"><a href="#"><i class="fa fa-cutlery"></i></a>
+                            </li>
+                            <li class="{{#if isHomePageHome}}active{{/if}}"><a href="#"><i class="fa fa-home"></i></a>
+                            </li>
+                            <li class="{{#if isHomePageBeer}}active{{/if}}"><a href="#"><i class="fa fa-beer"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {{else}}
+            <h1>Connecte-toi sur MyECP</h1>
+            <button id="myecp-login" class="button button-positive">Se connecter !</button>
+        {{/if}}
     {{else}}
-        <h1>Connecte-toi sur MyECP</h1>
-        <button id="myecp-login" class="button button-positive">Se connecter !</button>
+        <h1>Pas de connexion internet, en attente de connexion ...</h1>
     {{/if}}
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

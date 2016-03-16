@@ -165,10 +165,12 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/babel-runtime/0.1.4/web.browser/babel-runtime.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fuego_account-myecp/0.0.1/web.browser/account-myecp.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/base64/1.0.4/web.browser/base64.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/u2622_persistent-session/0.4.4/web.browser/lib/persistent_session.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fuego_myecp/0.0.1/web.browser/myecp_client.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/mongo-id/1.0.1/web.browser/id.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/binary-heap/1.0.4/web.browser/min-max-heap.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/binary-heap/1.0.4/web.browser/min-heap.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/amplify/1.0.0/web.browser/packages/amplify.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/binary-heap/1.0.4/web.browser/max-heap.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/npm-bcrypt/0.7.8_2/web.browser/packages/npm-bcrypt.js" />
       </sourceFilesUrls>
@@ -337,10 +339,12 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/babel-runtime/0.1.4/web.browser/babel-runtime.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fuego_account-myecp/0.0.1/web.browser/account-myecp.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/base64/1.0.4/web.browser/base64.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/u2622_persistent-session/0.4.4/web.browser/lib/persistent_session.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fuego_myecp/0.0.1/web.browser/myecp_client.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/mongo-id/1.0.1/web.browser/id.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/binary-heap/1.0.4/web.browser/min-max-heap.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/binary-heap/1.0.4/web.browser/min-heap.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/amplify/1.0.0/web.browser/packages/amplify.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/binary-heap/1.0.4/web.browser/max-heap.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/npm-bcrypt/0.7.8_2/web.browser/packages/npm-bcrypt.js" />
     </CLASSES>

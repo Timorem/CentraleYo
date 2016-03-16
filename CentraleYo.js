@@ -227,7 +227,8 @@ if (Meteor.isClient) {
 		isButtonActivated : function() {return isButtonEnabled();},
 		isHomePageHome: function() {return Session.get("homePage") == "home" ;},
 		isHomePageBeer: function() {return Session.get("homePage") == "beer" ;},
-		isHomePageCutlery: function() {return Session.get("homePage") == "cutlery" ;}
+		isHomePageCutlery: function() {return Session.get("homePage") == "cutlery" ;},
+		isMeteorConnected: function() {return Meteor.status().connected; }
 	});
 
 
