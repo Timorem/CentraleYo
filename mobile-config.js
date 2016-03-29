@@ -7,7 +7,7 @@ App.info({
     description: 'L\'Application de la NEB',
     author: 'Centrale Yo (INC 07)',
     email: 'thomas.walter@student.ecp.fr',
-    website: 'http://centraleyo.meteor.com'
+    website: 'http://centraleyo.via.ecp.fr'
 });
 
 // Set up resources such as icons and launch screens.
